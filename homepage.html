@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meal Finder @KMUTT</title>
+    <link rel="icon" href="pic/logo.png">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+</head>
+<body class="main">
+    <div class="clearfix">
+        <div class="navBar">
+            <ul>
+                <div class="floatL">
+                    <li><a href="homepage.php"><img src="pic/logo.png"></a></li>
+                    <li><a href="#aboutus">ABOUT US</a></li>
+                    <li><a href="#report">REPORT</a></li>
+                </div>
+                <div class="floatR">
+                    <li><a href="/signin">SIGN IN</a></li>
+                    <li><a href="/signup">SIGN UP</a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="rand">
+            <h1>#WhatDoYouWantToEatToday<br></h1>
+            <ul>
+                <li><a href="#randombtn" onclick="myFunction()">RANDOM</a></li>
+                <li><p id="randomans"></p></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function myFunction() {
+        var x = Math.floor((Math.random() * 3) + 1);
+        if(x == 1){
+            document.getElementById("randomans").innerHTML = "Food2";
+        }
+        else if(x == 2){
+            document.getElementById("randomans").innerHTML = "Food2";
+        }
+        else{
+            document.getElementById("randomans").innerHTML = "Food3";
+        }
+    }
+</script>

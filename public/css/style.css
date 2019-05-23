@@ -1,0 +1,142 @@
+body{
+    margin: 1% 0 0 0;
+    font-family: 'Arimo', sans-serif;
+    font-weight: bold;
+    }
+
+.navBar ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+.navBar .floatL img{
+      float: left;
+      width: 80px;
+      height: 80px;
+      padding: 14px 16px;
+  }
+
+.navBar .floatL li{
+    float: left;
+  }
+
+.floatR li{
+    float: right;
+  }
+  
+.navBar li a:not(.picAccount){
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 15.5px 25px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+.navBar li p{
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    }
+
+.navBar li .picAccount{
+    margin: 0;
+    }
+
+.clearfix:after {
+    content: "";
+    clear: both;
+    display: table;
+    }
+
+.rand{
+    margin: 0;
+}
+
+.rand ul{
+    text-align: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    }
+
+.rand h1{
+    font-size: 45px;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.rand li{
+    text-align: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+.rand a{
+    text-decoration: none;
+    color: black;
+}
+
+.signin .signin{
+    text-align: center; 
+}
+
+.signup .signup{
+    text-align: center; 
+}
+
+.clientpage .nav{
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 25px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.adminpage .gal ul{
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}   
+
+.adminpage .gal li{
+    display: inline-block;
+}
+
+.adminpage .management {
+    margin: 10px;
+    border: 1px solid #ccc;
+    width: 140px;
+  }
+
+.adminpage .management:hover {
+    border: 1px solid #777;
+}
+
+.adminpage .management img{
+    width: 100%;
+    height: auto;
+}
+
+.adminpage .desc{
+    padding: 10px;
+    text-align: center;
+}
+
+h1.adminpage{
+    font-size: 45px;
+    margin: 0;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
