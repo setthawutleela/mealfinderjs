@@ -6,6 +6,8 @@ const parser = require('body-parser');
 const session = require('express-session');
 const app = express();
 
+const monthName = ["January" , "Febuary" , "March" , "April" , "May" , "June" , "July" , "August" , "September" , "October" , "November" , "December"];
+
 app.use(parser());
 app.use(session({
     secret: 'ssshhhhh',
@@ -52,11 +54,13 @@ app.get('/admin/manageaccount', (req, res) => {
     res.sendFile(__dirname+'/manageaccount.html')
 });
 
+app.get('/profile',(req,res) =>{
+    res.sendFile(__dirname+'/profile.html')
+});
 
 app.post('/signin',(req, res) => {
     console.log('Sign in requested...');
     let sql = `SELECT * FROM user_info WHERE email = '${req.body.email}'`;
-    console.log('let sql pass');
     let query = con.query(sql, (err, result) => {
         if(err){ //Query is not success
             console.log(err);
@@ -72,10 +76,22 @@ app.post('/signin',(req, res) => {
                     sess.email = result[0].email;
                     sess.rank = result[0].rank;
                     sess.fullName = result[0].fullName;
-                    if(result[0].rank == 'admin'){
+                    sess.phone = result[0].userPhone;
+                    sess.password = result[0].password;
+                    sess.dob = result[0].birthDate;
+                    //format date
+                    var formattedDate = new Date(sess.dob);
+                    sess.dobd = formattedDate.getDate();
+                    sess.dobm = formattedDate.getMonth();
+                    sess.dobmname = monthName[formattedDate.getMonth()];
+                    sess.doby = formattedDate.getFullYear();
+                    console.log(`Birth of Date = ${sess.dobd} ${sess.dobm} ${sess.doby}`);
+                    //end format date
+                    if(result[0].rank == 'Admin'){
+
                         res.redirect('/admin');
                     }
-                    else if(result[0].rank == 'client'){
+                    else if(result[0].rank == 'Client'){
                         res.redirect('/');
                     }
                 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Meal Finder @KMUTT</title>
+        <link rel="icon" href="pic/logo.png">
+        <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body class="main">
+        <div class="clearfix">
+            <div class="navBar">
+                <ul>
+                    <div class="floatL">
+                        <li><a href="/"><img src="pic/logo.png"></a></li>
+                        <li><a href="#aboutus">ABOUT US</a></li>
+                        <li><a href="#report">REPORT</a></li>
+                    </div>
+                    <div class="floatR">
+                        <li class='not-client'><a href="/signin">SIGN IN</a></li>
+                        <li class='not-client'><a href="/signup">SIGN UP</a></li>
+                        <li class='client'><a href="/signout">SIGN OUT</a></li>
+                        <li class='client'>
+                            <p id='username'></p>
+                        </li>
+                        <li class='client'><a href="/profile"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <!--Show profile-->
+        <h1>PROFILE</h1>
+        <!--Image-->
+        <!--EndImage-->
+        <!--Normal-->
+        <b>NAME</b> : <span id=fullName></span> <br>
+        <b>Email Address</b> : <span id=email></span> <br>
+        <b>Phone Number</b> : <span id=phone></span> <br>
+        <b>Date of birth</b> : <span id=dob></span> <br>
+        <b>Rank</b> : <span id=rank></span> <br>
+        <form action=/editProfile method=POST>
+            <input type="submit" value="Edit Profile">
+        </form>
+        <!--EndNormal-->
+        <!--End Show profile-->
+
+    </body>
+</html>
+
+<script>
+
+    //get user data from session
+    $.get('/checksession',(data,status)=>{
+        cookies = JSON.parse(data)
+        console.log(cookies)
+        $('#fullName').text(cookies.fullName)
+        $('#email').text(cookies.email)
+        $('#phone').text(cookies.phone)
+        $('#dob').text(cookies.dobd +" "+ cookies.dobmname +" "+ cookies.doby)
+        $('#rank').text(cookies.rank)
+    });
+</script>
