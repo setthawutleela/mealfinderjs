@@ -131,6 +131,7 @@ app.get('/getaccount', (req, res) => {
         res.send(JSON.stringify(results))
     })
 })
+
 app.get('/signin',(req, res) => {
     console.log('Sign in requested...');
     let sql = `SELECT * FROM user_info WHERE email = '${req.body.email}'`;

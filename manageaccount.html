@@ -82,12 +82,11 @@
         console.log("Clicked   s ", $(this).text(), $(this).attr('id'));
         let idx = $(this).attr('id');
         let div = $('#account-output');
-        div.text('')
+        div.text('');
         let data = users[idx];
-        var p = $('<p>')
-        
-        p.append(data.password)
-        div.append(p)
+        var p = $('<p>');
+        p.append(data.password);
+        div.append(p);
     })
     
 </script>
