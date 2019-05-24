@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meal Finder @KMUTT</title>
+    <link rel="icon" href="pic/icon.png">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+</head>
+<body class="signup">
+    <div class="clearfix">
+            <div class="navBar">
+                <ul>
+                    <div class="floatL">
+                        <li><a href="homepage.php"><img src="pic/logo.png"></a></li>
+                        <li><a href="#aboutus">ABOUT US</a></li>
+                        <li><a href="#report">REPORT</a></li>
+                    </div>
+                    <div class="floatR">
+    
+                    </div>
+                </ul>
+            </div>
+        </dxiv>
+        <div class="clearfix">
+            <div class="signup">
+                <h1>Theme Information<br></h1>
+                <form action="action_themeInfo.php" method="POST">
+                    <input type="text" name="themeName" placeholder="Theme Name" required autofocus><br><br>
+                    <textarea placeholder="Theme Description" rows="4" cols="50" name="themeDescription"></textarea> <required><br>
+                    Theme Start Date<br>
+                    <input type="date" name="themeStartDate" placeholder="Theme Start Date" required><br>
+                    Theme End Date<br>
+                    <input type="date" name="themeEndDate" placeholder="Theme End Date" required><br>
+                    Theme Picture <br>
+                    <input type="file" name="themePicture"><br>
+                    <br><br>
+                    <input type="submit" value="Sign Up">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
