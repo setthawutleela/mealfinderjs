@@ -22,7 +22,11 @@
                 <div class="floatR">
                     <li class='not-client'><a href="/signin">SIGN IN</a></li>
                     <li class='not-client'><a href="/signup">SIGN UP</a></li>
-                    <li class='client'><a href="/logout">SIGN OUT</a></li>
+                    <li class='client'><a href="/signout">SIGN OUT</a></li>
+                    <li class='client'>
+                        <p id='username'></p>
+                    </li>
+                    <li class='client'><a href="#"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
                 </div>
             </ul>
         </div>
@@ -60,12 +64,14 @@
         }
     }
 
-    $.get('/checksession', (data, status)=> { //If user is customer
+    $.get('/checksession', (data, status)=> {
         cookies = JSON.parse(data)
+        console.log(cookies)
         if(cookies.email) {
             $('.client').show()
             $('.not-client').hide()
-
         }
+        $('#username').text(cookies.fullName)
     })
+
 </script>
