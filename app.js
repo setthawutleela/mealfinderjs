@@ -21,7 +21,7 @@ app.use('/admin', express.static(path.join(__dirname, 'public')));
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'root',
     database: 'mealfinder'
 });
 //Connect database
@@ -56,6 +56,7 @@ app.get('/admin/manageaccount', (req, res) => {
 app.post('/signin',(req, res) => {
     console.log('Sign in requested...');
     let sql = `SELECT * FROM user_info WHERE email = '${req.body.email}'`;
+    console.log('let sql pass');
     let query = con.query(sql, (err, result) => {
         if(err){ //Query is not success
             console.log(err);
