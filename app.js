@@ -54,7 +54,6 @@ app.get('/admin/manageaccount', (req, res) => {
 });
 
 
-
 app.post('/signin',(req, res) => {
     console.log('Sign in requested...');
     let sql = `SELECT * FROM user_info WHERE email = '${req.body.email}'`;
@@ -126,7 +125,7 @@ app.get('/signout', (req, res) => {
     })
 })
 
-app.get('/getaccount', (req, res) => {
+app.get('/admin/getaccount', (req, res) => {
     let sql = `SELECT * FROM user_info WHERE 1`;
     let query = con.query(sql, (err, results) => {
         res.send(JSON.stringify(results))
@@ -163,6 +162,14 @@ app.get('/signin',(req, res) => {
                 }
             }
         }
+    })
+});
+
+app.post('/admin/delete', (req, res) => {
+    console.log(req.body);
+    let sql = `DELETE FROM user_info WHERE user_id = ${req.body.user_id}`;
+    let query = con.query(sql, (err, results) => {
+        res.send('success');
     })
 });
 

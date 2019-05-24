@@ -4,7 +4,7 @@ body{
     font-weight: bold;
     }
 
-.navBar ul {
+.navBar ul{
     margin: 0;
     list-style-type: none;
     padding: 0;
@@ -22,7 +22,7 @@ body{
     float: left;
   }
 
-.floatR li{
+.navBar .floatR li{
     float: right;
   }
   
@@ -168,20 +168,23 @@ h1.adminpage{
 
 .search{
     float: left;
-    width: 30%;
     font-size: 12px;
     text-align: center;
 }
 
-#search-op{
+#mySearch {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#search-op table{
     text-align: left;
-    font-size: 12px;
-    
+    font-size: 1.2vw;
+    width: 100%;
     margin: 0 auto;
 }
 
 #account-output{
     float: right;
-    font-size: 12px;
-    width: 70%;
+    font-size: 1.4vw;
 }

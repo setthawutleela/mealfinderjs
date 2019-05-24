@@ -8,6 +8,7 @@
     <link rel="icon" href="pic/logo.png">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 </head>
@@ -23,23 +24,34 @@
                     <li>
                         <p id='username'></p>
                     </li>
-                    <li><a href="#edit"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
+                    <li><a href="#"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
                 </div>
             </ul>
         </div>
     </div>
     <h1>Account management</h1>
-    <div class="clearfix">
-        <div class="search">
-            <input type="text" id="mySearch" placeholder="Search..">
-            <div id="search-op"></div>
+    <div class="clearfix container">
+        <div class='row'>
+
+            <div class="search col-4">
+                <input type="text" id="mySearch" placeholder="Search..">
+                <div id="search-op"></div>
+            </div>
+            <div class='col'>
+                <div class='row' style='height: 50vh'>
+                    <div class='col' id="account-output"></div>
+                </div>
+                <div class='row'>
+                    <button class='btn btn-danger' id='delete' style='margin-left: 75%'>Delete</button>
+                </div>
+            </div>
         </div>
-        <div id="account-output"></div>
     </div>
 </body>
 <script>
     var users;
-    let account;
+    let data;
+    $('#delete').hide()
 
     $.get('/checksession', (data, status)=> {
         cookies = JSON.parse(data)
@@ -47,20 +59,24 @@
         $('#username').text(cookies.fullName)
     })
 
-    $.get('/getaccount', (data, status)=> {
-        users = JSON.parse(data);
-        var table = $('<table>').attr('id', 'account-table');
-            table.css('border', '1px solid black');
-        var tbody = $('<tbody>')
-        for (i = 0; i < users.length; i++) {
-            
-            var row = `<tr id='${i}'><td>${users[i].email}</td></tr>`
-            tbody.append(row);
-        }
-        table.append(tbody)
-        $('#search-op').append(table);
-        console.log(users);
-    });
+    function get_account() {
+        $.get('/admin/getaccount', (data, status)=> {
+            users = JSON.parse(data);
+            $('#search-op').text('')
+            var table = $('<table>').attr('id', 'account-table');
+                table.css('border', '1px solid black');
+            var tbody = $('<tbody>')
+            for (i = 0; i < users.length; i++) {
+                
+                var row = `<tr id='${i}'><td>${users[i].email}</td></tr>`
+                tbody.append(row);
+            }
+            table.append(tbody)
+            $('#search-op').append(table);
+            console.log(users);
+        });
+    }
+    get_account();
 
     $('#mySearch').keyup( function() {
         var input, filter, ul, li, a, i;
@@ -79,15 +95,32 @@
     })
 
     $('#search-op').on('click', 'table tr', function() {
-        console.log("Clicked   s ", $(this).text(), $(this).attr('id'));
         let idx = $(this).attr('id');
         let div = $('#account-output');
         div.text('');
-        let data = users[idx];
-        var p = $('<p>');
-        p.append(data.password);
-        div.append(p);
+        data = users[idx];
+
+        Object.keys(data).forEach(function(key) {
+
+            var divkey = $(`<div>`);
+            divkey.append(`${key}: ${data[key]}`);
+            div.append(divkey);
+        });
+        $('#delete').show();
+    });
+
+    $('#delete').click(function() {
+        $.post( "/admin/delete", data)
+            .done(function(data) {
+                console.log('asd')
+                let div = $('#account-output');
+                div.text('');
+                $('#delete').hide();
+                get_account();
+            });
     })
-    
+
+    	
+
 </script>
 </html>
