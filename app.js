@@ -100,7 +100,7 @@ app.post('/signup',(req, res) => {
         }
         else{ //Query is success
             console.log('sign up successfully...');
-            sess = req.session;
+            const sess = req.session;
             sess.email = req.body.email;
             sess.rank = req.body.rank;
             sess.fullName = req.body.fullName;
