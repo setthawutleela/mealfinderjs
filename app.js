@@ -165,6 +165,14 @@ app.get('/signin',(req, res) => {
     })
 });
 
+app.post('/admin/delete', (req, res) => {
+    console.log(req.body);
+    let sql = `DELETE FROM user_info WHERE user_id = ${req.body.user_id}`;
+    let query = con.query(sql, (err, results) => {
+        res.send('success');
+    })
+});
+
 const port = 3000;
 app.listen(port, () => {
     console.log(`Server started on port ${port}!`)
