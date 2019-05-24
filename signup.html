@@ -20,7 +20,7 @@
                         <li><a href="#report">REPORT</a></li>
                     </div>
                     <div class="floatR">
-    
+                        <li class='not-client'><a href="/signin">SIGN IN</a></li>
                     </div>
                 </ul>
             </div>
@@ -28,20 +28,17 @@
         <div class="clearfix">
             <div class="signup">
                 <h1>Registration<br></h1>
-                <form action="action_signup.php" method="POST">
-                    <input type="email" name="email" placeholder="Email" required autofocus><br>
-                    <input type="password" name="password" placeholder="Password" required><br>
-                    <b>Confirm Password</b><br>
-                    <input type="password" name="conpassword" placeholder="Confirm Password" required><br>
-                    <b>Name</b><br>
-                    <input type="text" name="fullName" placeholder="Full Name" required><br>
-                    <b>Phone Number</b><br>
-                    <input type="text" name="userPhone" placeholder="Phone" required><br>
-                    <b>Date of Birth</b><br>
-                    <input type="date" name="birthDate" placeholder="BOD" required><br>
-                    <br><br>
-                    <input type="submit" value="Sign Up">
-                </form>
+                <div class="ipform">
+                    <form action="/signup" method="POST">
+                        <input type="email" name="email" placeholder="Email" required autofocus><br>
+                        <input type="password" name="password" placeholder="Password" required><br>
+                        <input type="password" name="cfpassword" placeholder="Confirm Password" required><br>
+                        <input type="text" name="fullName" placeholder="Full Name" required><br>
+                        <input type="text" name="userPhone" placeholder="Phone" required><br>
+                        <input type="date" name="birthDate" placeholder="BOD" required><br>
+                        <input type="submit" value="SIGN UP">
+                    </form>
+                </div>
             </div>
         </div>
     </div>

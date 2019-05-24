@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meal Finder @KMUTT</title>
+    <link rel="icon" href="pic/logo.png">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+</head>
+<body class="managecustomer">
+    <div class="clearfix">
+        <div class="navBar">
+            <ul>
+                <div class="floatL">
+                    <li><a href="/admin">BACK</a></li>
+                </div>
+                <div class="floatR">
+                    <li><a href="/signout">SIGN OUT</a></li>
+                    <li>
+                        <p id='username'></p>
+                    </li>
+                    <li><a href="#edit"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <h1>Account management</h1>
+    <div class="clearfix">
+        <div class="search">
+            <input type="text" id="mySearch" placeholder="Search..">
+            <div id="search-op"></div>
+        </div>
+        <div id="account-output"></div>
+    </div>
+</body>
+<script>
+    var users;
+    let account;
+
+    $.get('/checksession', (data, status)=> {
+        cookies = JSON.parse(data)
+        console.log(cookies)
+        $('#username').text(cookies.fullName)
+    })
+
+    $.get('/getaccount', (data, status)=> {
+        users = JSON.parse(data);
+        var table = $('<table>').attr('id', 'account-table');
+            table.css('border', '1px solid black');
+        var tbody = $('<tbody>')
+        for (i = 0; i < users.length; i++) {
+            
+            var row = `<tr id='${i}'><td>${users[i].email}</td></tr>`
+            tbody.append(row);
+        }
+        table.append(tbody)
+        $('#search-op').append(table);
+        console.log(users);
+    });
+
+    $('#mySearch').keyup( function() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("mySearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("account-table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    })
+
+    $('#search-op').on('click', 'table tr', function() {
+        console.log("Clicked   s ", $(this).text(), $(this).attr('id'));
+        let idx = $(this).attr('id');
+        let div = $('#account-output');
+        div.text('')
+        let data = users[idx];
+        var p = $('<p>')
+        
+        p.append(data.password)
+        div.append(p)
+    })
+    
+</script>
+</html>

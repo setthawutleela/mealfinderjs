@@ -13,9 +13,9 @@ body{
   
 .navBar .floatL img{
       float: left;
-      width: 80px;
-      height: 80px;
-      padding: 14px 16px;
+      width: 70px;
+      height: 70px;
+      margin-bottom: 10px;
   }
 
 .navBar .floatL li{
@@ -65,7 +65,7 @@ body{
     overflow: hidden;
     }
 
-.rand h1{
+h1{
     font-size: 45px;
     margin: 0;
     text-align: center;
@@ -85,12 +85,30 @@ body{
     color: black;
 }
 
-.signin .signin{
-    text-align: center; 
+.signin, .signup{
+    text-align: center;
 }
 
-.signup .signup{
-    text-align: center; 
+.ipform input{
+    width: 20%;
+    border: 1px solid grey;
+    border-radius: 4px;
+    margin: 5px 0;
+    opacity: 0.85;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.ipform input:hover{
+    opacity: 1;
+}
+
+.ipform input[type=submit]{
+    border: none;
+    background: #6A993E;
+    color: white;
 }
 
 .clientpage .nav{
@@ -102,21 +120,22 @@ body{
     font-weight: bold;
 }
 
-.adminpage .gal ul{
+.adminpage .managementgal ul{
     list-style-type: none;
     text-align: center;
     margin: 0;
     padding: 0;
 }   
 
-.adminpage .gal li{
+.adminpage .managementgal li{
     display: inline-block;
 }
 
-.adminpage .management {
-    margin: 10px;
+.adminpage .management{
+    margin: 5px;
     border: 1px solid #ccc;
-    width: 140px;
+    width: 100px;
+    border-radius: 4px;
   }
 
 .adminpage .management:hover {
@@ -129,6 +148,7 @@ body{
 }
 
 .adminpage .desc{
+    font-size: 10px;
     padding: 10px;
     text-align: center;
 }
@@ -139,4 +159,29 @@ h1.adminpage{
     text-align: center;
     margin-top: 20px;
     margin-bottom: 30px;
+}
+
+#account-table tr:hover{
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.search{
+    float: left;
+    width: 30%;
+    font-size: 12px;
+    text-align: center;
+}
+
+#search-op{
+    text-align: left;
+    font-size: 12px;
+    
+    margin: 0 auto;
+}
+
+#account-output{
+    float: right;
+    font-size: 12px;
+    width: 70%;
 }

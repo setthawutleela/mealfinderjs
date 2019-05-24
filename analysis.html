@@ -9,33 +9,43 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 </head>
-<body class="signin">
+<body class="adminpage">
     <div class="clearfix">
         <div class="navBar">
             <ul>
                 <div class="floatL">
-                    <li><a href="/"><img class="logo" src="pic/logo.png"></a></li>
-                    <li><a href="#aboutus">ABOUT US</a></li>
-                    <li><a href="#report">REPORT</a></li>
+
                 </div>
                 <div class="floatR">
-                    <li class='not-client'><a href="/signup">SIGN UP</a></li>
+                    <li><a href="/logout">LOGOUT</a></li>
+                    <li>
+                        <p id='username'></p>
+                    </li>
+                    <li><a href="#edit"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
                 </div>
             </ul>
         </div>
     </div>
+    <h1 class="adminpage">Management menu</h1>
     <div class="clearfix">
-        <div class="signin">
-            <h1>Sign In<br></h1>
-            <div class="ipform">
-                <form action="/signin" method="POST">
-                    <input type="email" name="email" placeholder="Enter Email" required autofocus><br>
-                    <input type="password" name="password" placeholder="Enter Password" required><br>
-                    <input type="submit" value="SIGN IN">
-                </form>
-            </div>
+        <div class="managementgal">
+            <a href="#report"><p></p></a>
+            <ul>
+                <li><div class="management">
+                    <a href="#report"><img src="pic/report.svg"></a>
+                    <div class="desc">REPORT</div>
+                </div></li>
+            </ul>
         </div>
     </div>
 </body>
+<script>
+    $.get('/checksession', (data, status)=> {
+        cookies = JSON.parse(data)
+        console.log(cookies)
+        $('#username').text(cookies.fullName)
+    })
+</script>
 </html>

@@ -38,10 +38,7 @@
     </div>
 
     <div class='client'>
-        <p>Client is god!!.</p>
-        <p>Client is god!!.</p>
-        <p>Client is god!!.</p>
-        <p>Client is god!!.</p>
+        <p style="text-align: center; font-size: 100px;">Client is god!!.</p>
     </div>
 </body>
 </html>
@@ -63,7 +60,7 @@
         }
     }
 
-    $.get('/checksession', (data, status)=> {
+    $.get('/checksession', (data, status)=> { //If user is customer
         cookies = JSON.parse(data)
         if(cookies.email) {
             $('.client').show()
