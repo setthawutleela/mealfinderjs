@@ -71,12 +71,6 @@
     $.get('/checksession', (data, status)=> {
         cookies = JSON.parse(data)
         console.log(cookies)
-        if(cookies.email) {
-
-        }
-        else{
-            window.location.replace('/signout');
-        }
         $('#username').text(cookies.fullName)
     })
 </script>

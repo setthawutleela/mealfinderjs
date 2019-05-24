@@ -109,7 +109,7 @@ app.post('/signup',(req, res) => {
 });
 
 app.get('/checksession', (req, res) => {
-    const sess = req.session
+    sess = req.session
     res.send(JSON.stringify(sess))
 })
 
