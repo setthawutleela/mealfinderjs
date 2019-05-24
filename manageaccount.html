@@ -6,14 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Meal Finder @KMUTT</title>
     <link rel="icon" href="pic/logo.png">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="css/style.css"> 
 </head>
 <body class="managecustomer">
-    <div class="clearfix">
+    <div class="clearfix container-fluid">
         <div class="navBar">
             <ul>
                 <div class="floatL">
@@ -24,7 +23,6 @@
                     <li>
                         <p id='username'></p>
                     </li>
-                    <li><a href="#"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
                 </div>
             </ul>
         </div>
@@ -56,6 +54,12 @@
     $.get('/checksession', (data, status)=> {
         cookies = JSON.parse(data)
         console.log(cookies)
+        if(cookies.email) {
+
+        }
+        else{
+            window.location.replace('/signout');
+        }
         $('#username').text(cookies.fullName)
     })
 
@@ -109,15 +113,29 @@
         $('#delete').show();
     });
 
+    // $('#delete').click(function() {
+    //     $.post( "/admin/delete", data)
+    //         .done(function(data) {
+    //             console.log('asd')
+    //             let div = $('#account-output');
+    //             div.text('');
+    //             $('#delete').hide();
+    //             get_account();
+    //         });
+    // })
+
     $('#delete').click(function() {
-        $.post( "/admin/delete", data)
-            .done(function(data) {
-                console.log('asd')
-                let div = $('#account-output');
-                div.text('');
-                $('#delete').hide();
-                get_account();
-            });
+        var bOk = confirm("Kuay?");
+        if(bOk == true){
+            $.post( "/admin/delete", data)
+                .done(function(data) {
+                    console.log('asd')
+                    let div = $('#account-output');
+                    div.text('');
+                    $('#delete').hide();
+                    get_account();
+                });
+        }
     })
 
     	

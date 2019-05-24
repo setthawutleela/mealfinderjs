@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Meal Finder @KMUTT</title>
     <link rel="icon" href="pic/logo.png">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
@@ -71,6 +70,9 @@
             $('.client').show()
             $('.not-client').hide()
         }
+        else{
+            redirect('/signout');
+        }   
         $('#username').text(cookies.fullName)
     })
 
