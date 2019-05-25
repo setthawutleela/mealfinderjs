@@ -23,7 +23,7 @@ const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'mealfinder'
+    database: 'mealfinder2'
 });
 //Connect database
 con.connect((err) => {
@@ -53,6 +53,24 @@ app.get('/admin/manageaccount', (req, res) => {
     res.sendFile(__dirname+'/manageaccount.html')
 });
 
+//add view theme by Pleum
+app.get('/theme_view', (req, res) => {
+    res.sendFile(__dirname+'/theme_view.html')
+});
+
+app.get('/update',(req, res) => {
+    let sql = `UPDATE user_info SET rank = 'client' WHERE rank = 'Client'`;
+    let query = con.query(sql, (err, result) => {
+        if(err) {
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            res.send('Data updated...');
+        }
+    })
+});
+
 
 app.post('/signin',(req, res) => {
     console.log('Sign in requested...');
@@ -78,6 +96,9 @@ app.post('/signin',(req, res) => {
                     else if(result[0].rank == 'client'){
                         res.redirect('/');
                     }
+                    // else {
+                    //     res.redirect('https://www.google.co.th/search?q=บัคนะเราอะ');
+                    // }
                 }
                 else { //Log in is invalid
                     res.redirect('/signin');
@@ -132,6 +153,13 @@ app.get('/admin/getaccount', (req, res) => {
     })
 })
 
+app.get('/theme/get_themeName', (req, res) =>{
+    let sql = `SELECT themeName FROM theme_info WHERE 1`;
+    let query = con.query(sql, (err, results) =>{
+        res.send(JSON.stringify(results))
+    })
+})
+
 app.get('/signin',(req, res) => {
     console.log('Sign in requested...');
     let sql = `SELECT * FROM user_info WHERE email = '${req.body.email}'`;
@@ -146,6 +174,7 @@ app.get('/signin',(req, res) => {
             }
             else {//There is an email
                 if(result[0].password == req.body.password) {//Login is valid
+                    console.log(result[0])
                     sess = req.session;
                     sess.email = result[0].email;
                     sess.rank = result[0].rank;
@@ -165,12 +194,21 @@ app.get('/signin',(req, res) => {
     })
 });
 
+app.get('/theme/themeRestaurant', (req, res) => {
+    let sql = `SELECT   r.restaurantName
+                FROM theme_info t, theme_register tr, restaurant_info r
+                WHERE t.themeName = '${req.body.themeName} AND t.theme_ID = tr.theme_ID AND r.restaurant_ID = tr.restaurant_ID'`;
+    let query = con.query(sql, (err, results) => {
+        res.send(results);
+    })
+})
+
 app.post('/admin/delete', (req, res) => {
     console.log(req.body);
-    let sql = `DELETE FROM user_info WHERE user_id = ${req.body.user_id}`;
+    let sql = `DELETE FROM user_info WHERE email = '${req.body.email}'`;
     let query = con.query(sql, (err, results) => {
-        res.send('success');
-    })
+        res.send(results);
+    });
 });
 
 const port = 3000;

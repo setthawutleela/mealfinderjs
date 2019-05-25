@@ -35,6 +35,11 @@ body{
     font-weight: bold;
   }
 
+.theme{
+    color : green;
+    text-decoration: none;
+}
+
 .navBar li p{
     display: block;
     color: black;

@@ -74,6 +74,7 @@
             console.log(users);
         });
     }
+    
     get_account();
 
     $('#mySearch').keyup( function() {
@@ -121,9 +122,9 @@
     $('#delete').click(function() {
         var bOk = confirm("Kuay?");
         if(bOk == true){
-            $.post( "/admin/delete", data)
+            console.log(bOk);
+            $.post('/admin/delete', data)
                 .done(function(data) {
-                    console.log('asd')
                     let div = $('#account-output');
                     div.text('');
                     $('#delete').hide();
