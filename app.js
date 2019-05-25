@@ -54,9 +54,15 @@ app.get('/admin/manageaccount', (req, res) => {
     res.sendFile(__dirname+'/manageaccount.html')
 });
 
+//Client View
 app.get('/profile',(req,res) =>{
     res.sendFile(__dirname+'/profile.html')
 });
+
+app.get('/editProfile',(req,res) => {
+    res.sendFile(__dirname+'/editProfile.html')
+});
+
 
 app.post('/signin',(req, res) => {
     console.log('Sign in requested...');
@@ -187,6 +193,67 @@ app.post('/admin/delete', (req, res) => {
     let query = con.query(sql, (err, results) => {
         res.send('success');
     })
+});
+
+//editing profile
+app.post('/editing',(req,res)=>{
+    console.log(req.body);
+    let temp = {};
+    let sql = `SELECT * FROM user_info WHERE email = "${req.body.email}"`;
+    
+    sess = req.session;
+    let checkquery = con.query(sql,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+            res.redirect('/editing')
+        }
+        else
+        {
+            if(result.length == 0)//emptyslot
+            {
+                console.log("empty data");
+            }
+            else
+            {
+                console.log(result[0]);
+                if(req.body.fullName == "")
+                {
+                    req.body.fullName = result[0].fullName;
+                }
+                if(req.body.password == "")
+                {
+                    req.body.password = result[0].password;
+
+                }
+                if(req.body.phone == "")
+                {
+                    req.body.phone = result[0].userPhone;
+                }
+                console.log(req.body);
+                if(req.body.fullName != "" && req.body.password != "" && req.body.phone != "")
+                {
+                    let sqlUpdate = `UPDATE user_info SET fullName="${req.body.fullName}" , password="${req.body.password}", userPhone="${req.body.phone}" WHERE email = "${req.body.email}"`;
+                    console.log(sqlUpdate);
+                    let queryUpdate = con.query(sqlUpdate,(err,result2)=>{
+                        console.log("WTF")
+                        if(err)
+                        {
+                            console.log(err);
+                            res.redirect('/editing');
+                        }
+                        else
+                        {
+                            console.log("updated");
+                            sess.fullName = req.body.fullName;
+                            sess.phone = req.body.phone;
+                            res.redirect('/profile');
+                        }
+                    });
+                }
+            }
+        }
+    });    
 });
 
 const port = 3000;

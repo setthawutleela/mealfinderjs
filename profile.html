@@ -31,22 +31,23 @@
                 </ul>
             </div>
         </div>
-        <!--Show profile-->
-        <h1>PROFILE</h1>
-        <!--Image-->
-        <!--EndImage-->
-        <!--Normal-->
-        <b>NAME</b> : <span id=fullName></span> <br>
-        <b>Email Address</b> : <span id=email></span> <br>
-        <b>Phone Number</b> : <span id=phone></span> <br>
-        <b>Date of birth</b> : <span id=dob></span> <br>
-        <b>Rank</b> : <span id=rank></span> <br>
-        <form action=/editProfile method=POST>
-            <input type="submit" value="Edit Profile">
-        </form>
-        <!--EndNormal-->
-        <!--End Show profile-->
-
+        <div class="clearfix">
+            <!--Show profile-->
+            <h1>PROFILE</h1>
+            <!--Image-->
+            <!--EndImage-->
+            <!--Normal-->
+            <b>NAME</b> : <span id=fullName></span> <br>
+            <b>Email Address</b> : <span id=email></span> <br>
+            <b>Phone Number</b> : <span id=phone></span> <br>
+            <b>Date of birth</b> : <span id=dob></span> <br>
+            <b>Rank</b> : <span id=rank></span> <br>
+            <form action="/editProfile" method="GET">
+                <input type="submit" value="Edit Profile">
+            </form>
+            <!--EndNormal-->
+            <!--End Show profile-->
+        </div>
     </body>
 </html>
 

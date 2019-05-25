@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meal Finder @KMUTT</title>
+    <link rel="icon" href="pic/logo.png">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+<body class="signin">
+    <div class="clearfix">
+        <div class="navBar">
+            <ul>
+                <div class="floatL">
+                    <li><a href="/"><img class="logo" src="pic/logo.png"></a></li>
+                    <li><a href="#aboutus">ABOUT US</a></li>
+                    <li><a href="#report">REPORT</a></li>
+                </div>
+                <div class="floatR">
+                    <li class='not-client'><a href="/signup">SIGN UP</a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="editing">
+            <h1>EDIT PROFILE<br></h1>
+            <div class="ipform">
+                    Please fill in the box where you want to edit your profile.<br>
+                    If you didn't want to change, Please ignore it. <br><br>
+                <form action="/editing" method="POST">
+                    Name : 
+                    <input type="text" name="fullName" id="fullName" placeholder="Enter new full name"><br>
+                    New password :
+                    <input type="password" id="password" name="password" placeholder="Enter Password" onkeyup="passwordFunc()"><br>
+                    Confirm new password :
+                    <input type="password" id="conpassword" name="conpassword" placeholder="Confirm new password" onkeyup="conpassFunc()">
+                    <br> <span id = passwordText></span> <br>
+                    Phone Number :
+                    <input type="text" name="phone" id="phone" placeholder="Enter new phone number"><br>
+                    
+                    <input type="hidden" name="email" id="email" value="">
+                    <!--Image-->
+                    
+                    <input type="submit" value="Apply change">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+$.get('/checkSession',(data,status)=>{
+    cookies = JSON.parse(data)
+    $('#fullName').attr("placeholder",cookies.fullName)
+    $('#phone').attr("placeholder",cookies.phone)
+    $('#email').val(cookies.email)
+});
+
+function passwordFunc()
+{
+    $('#passwordText').text("Please confirm your password before applying change");
+}
+
+function conpassFunc()
+{
+    if($('#password').val() != $('#conpassword').val())
+    {
+        $('#passwordText').css('color','red');
+        $('#passwordText').text("The password didn't matched.");
+        $(':input[type="submit"]').prop('disabled',true);
+    }
+    else
+    {
+        $("#passwordText").css("color","green");
+        $("#passwordText").text("The password matched");
+        $(':input[type="submit"]').prop('disabled',false);
+    }
+};
+</script>
