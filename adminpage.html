@@ -40,7 +40,7 @@
                     <div class="desc">NEWS</div>
                 </div></li>
                 <li><div class="management">
-                    <a href="/admin/manageaccount"><img src="pic/account.svg"></a>
+                    <a href="/admin/manage-account"><img src="pic/account.svg"></a>
                     <div class="desc">ACCOUNT</div>
                 </div></li>
                 <li><div class="management">
@@ -48,7 +48,7 @@
                     <div class="desc">RESTAURANT</div>
                 </div></li><br>
                 <li><div class="management">
-                    <a href="#theme"><img src="pic/theme.svg"></a>
+                    <a href="/admin/manage-theme"><img src="pic/theme.svg"></a>
                     <div class="desc">THEME</div>
                 </div></li>
                 <li><div class="management">
@@ -68,7 +68,7 @@
     </div>
 </body>
 <script>
-    $.get('/checksession', (data, status)=> {
+    $.get('/check-session', (data, status)=> {
         cookies = JSON.parse(data)
         console.log(cookies)
         $('#username').text(cookies.fullName)

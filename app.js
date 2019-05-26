@@ -48,8 +48,12 @@ app.get('/admin', (req, res) => {
     res.sendFile(__dirname+'/adminpage.html')
 });
 
-app.get('/admin/manageaccount', (req, res) => {
+app.get('/admin/manage-account', (req, res) => {
     res.sendFile(__dirname+'/manageaccount.html')
+});
+
+app.get('/admin/manage-theme', (req, res) => {
+    res.sendFile(__dirname+'/managetheme.html')
 });
 
 
@@ -108,7 +112,7 @@ app.post('/signup',(req, res) => {
     });
 });
 
-app.get('/checksession', (req, res) => {
+app.get('/check-session', (req, res) => {
     sess = req.session
     res.send(JSON.stringify(sess))
 })
@@ -121,13 +125,6 @@ app.get('/signout', (req, res) => {
         else{
             res.redirect('/signin');
         }
-    })
-})
-
-app.get('/admin/getaccount', (req, res) => {
-    let sql = `SELECT * FROM user_info WHERE 1`;
-    let query = con.query(sql, (err, results) => {
-        res.send(JSON.stringify(results))
     })
 })
 
@@ -164,12 +161,50 @@ app.get('/signin',(req, res) => {
     })
 });
 
-app.post('/admin/delete', (req, res) => {
-    console.log(req.body);
+app.get('/admin/get-account', (req, res) => {
+    let sql = `SELECT * FROM user_info WHERE 1`;
+    let query = con.query(sql, (err, results) => {
+        res.send(JSON.stringify(results))
+    })
+})
+
+app.post('/admin/delete-account', (req, res) => {
     let sql = `DELETE FROM user_info WHERE user_id = ${req.body.user_id}`;
     let query = con.query(sql, (err, results) => {
         res.send('success');
     })
+});
+
+app.get('/admin/get-theme', (req, res) => {
+    let sql = `SELECT * FROM theme_info WHERE 1`;
+    let query = con.query(sql, (err, results) => {
+        res.send(JSON.stringify(results))
+    })
+});
+
+app.post('/admin/delete-theme', (req, res) => {
+    let sql = `DELETE FROM theme_info WHERE theme_id = ${req.body.theme_id}`;
+    let query = con.query(sql, (err, results) => {
+        res.send('success');
+    })
+});
+
+app.post('/admin/edit-theme', (req, res) => {
+    console.log(req.body);
+    let sql = `UPDATE theme_info SET themeName = '${req.body.themeName}' WHERE theme_id = '${req.body.theme_id}'`
+    let query = con.query(sql, (err, results) => {
+        res.send(JSON.stringify(results))
+    });
+});
+
+app.post('/admin/add-theme', (req, res) => {
+    console.log(req.body);
+    let sql = `INSERT INTO theme_info(themeName, themeDescription, themeStartDate, themeEndDate, themeViewCount)
+                VALUES('${req.body.themeName}', '${req.body.themeDescription}', '${req.body.themeStartDate}',
+                '${req.body.themeEndDate}', '${req.body.themeViewCount}')`
+    let query = con.query(sql, (err, results) => {
+        res.send(JSON.stringify(results))
+    });
 });
 
 const port = 3000;
