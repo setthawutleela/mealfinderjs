@@ -35,6 +35,7 @@
             <!--Show profile-->
             <h1>PROFILE</h1>
             <!--Image-->
+            <img src="./public/pic/default.png"/>
             <!--EndImage-->
             <!--Normal-->
             <b>NAME</b> : <span id=fullName></span> <br>
@@ -62,5 +63,6 @@
         $('#phone').text(cookies.phone)
         $('#dob').text(cookies.dobd +" "+ cookies.dobmname +" "+ cookies.doby)
         $('#rank').text(cookies.rank)
+        $('#image').attr('src',cookies.image)
     });
 </script>

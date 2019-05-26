@@ -4,6 +4,8 @@ const path = require('path');
 const upload = require('express-fileupload');
 const parser = require('body-parser');
 const session = require('express-session');
+const fs = require('fs');
+const multer = require('multer');
 const app = express();
 
 const monthName = ["January" , "Febuary" , "March" , "April" , "May" , "June" , "July" , "August" , "September" , "October" , "November" , "December"];
@@ -85,6 +87,7 @@ app.post('/signin',(req, res) => {
                     sess.phone = result[0].userPhone;
                     sess.password = result[0].password;
                     sess.dob = result[0].birthDate;
+                    sess.image = result[0].profile_picture;
                     //format date
                     var formattedDate = new Date(sess.dob);
                     sess.dobd = formattedDate.getDate();
@@ -112,9 +115,9 @@ app.post('/signin',(req, res) => {
 app.post('/signup',(req, res) => {
     console.log('Sign up requested...');
     var ranking = 'client';
-    let sql = `INSERT INTO user_info(email, fullName, password, rank, userPhone, birthDate)
+    let sql = `INSERT INTO user_info(email, fullName, password, rank, userPhone, birthDate, profile_picture)
                 VALUES('${req.body.email}', '${req.body.fullName}', '${req.body.password}',
-                '${ranking}', '${req.body.userPhone}', ${req.body.birthDate})`;
+                '${ranking}', '${req.body.userPhone}', ${req.body.birthDate}, "default.png")`;
     let query = con.query(sql, (err, result) => {
         if(err){ //Query is not success
             console.log(err);
@@ -195,6 +198,10 @@ app.post('/admin/delete', (req, res) => {
     })
 });
 
+const upload = multer({
+    dest: "/public/tempPic"
+});
+
 //editing profile
 app.post('/editing',(req,res)=>{
     console.log(req.body);
@@ -230,10 +237,46 @@ app.post('/editing',(req,res)=>{
                 {
                     req.body.phone = result[0].userPhone;
                 }
+                if(req.body.image == "")
+                {
+                    if(result[0].profile_picture == null)
+                    {
+                        req.body.image = "default.png";
+                    }
+                    else
+                    {
+                        req.body.image = result[0].profile_picture;
+                    }
+                }
                 console.log(req.body);
                 if(req.body.fullName != "" && req.body.password != "" && req.body.phone != "")
                 {
-                    let sqlUpdate = `UPDATE user_info SET fullName="${req.body.fullName}" , password="${req.body.password}", userPhone="${req.body.phone}" WHERE email = "${req.body.email}"`;
+                    upload.single("image"),(req,res)=>{
+                        const tempPath = req.file.path;
+                        const targetPath = path.join(__dirname,"./public/pic/image.png");
+                        
+                        if(path.extname(req.file.originalname).toLowerCase() === ".png"){
+                            fs.rename(tempPath, targetPath, err => {
+                                if(err) return handleError(err,res);
+
+                                res
+                                    .status(200)
+                                    .contentType("text/plain")
+                                    .end("File uploaded!");
+                            });
+                        }
+                        else
+                        {
+                            fs.unlink(tempPath, err => {
+                                if(err) return handleError(err,res);
+                                res
+                                    .status(403)
+                                    .contentType("text/plain")
+                                    .end("Only .png files are allowed")
+                            });
+                        }
+                    };
+                    let sqlUpdate = `UPDATE user_info SET fullName="${req.body.fullName}" , password="${req.body.password}", userPhone="${req.body.phone}", profile_picture="${req.body.image}" WHERE email = "${req.body.email}"`;
                     console.log(sqlUpdate);
                     let queryUpdate = con.query(sqlUpdate,(err,result2)=>{
                         console.log("WTF")
@@ -247,6 +290,7 @@ app.post('/editing',(req,res)=>{
                             console.log("updated");
                             sess.fullName = req.body.fullName;
                             sess.phone = req.body.phone;
+                            sess.image = req.body.image;
                             res.redirect('/profile');
                         }
                     });

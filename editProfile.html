@@ -31,7 +31,7 @@
             <div class="ipform">
                     Please fill in the box where you want to edit your profile.<br>
                     If you didn't want to change, Please ignore it. <br><br>
-                <form action="/editing" method="POST">
+                <form action="/editing" enctype="multipart/form-data" method="POST">
                     Name : 
                     <input type="text" name="fullName" id="fullName" placeholder="Enter new full name"><br>
                     New password :
@@ -44,7 +44,7 @@
                     
                     <input type="hidden" name="email" id="email" value="">
                     <!--Image-->
-                    
+                    <input type="file" name="image">
                     <input type="submit" value="Apply change">
                 </form>
             </div>
