@@ -31,8 +31,11 @@
             </ul>
         </div>
     </div>
+
     <h1>Theme management</h1>
+
     <div class="clearfix container">
+        <div></div>
         <div class='row'>
             <div class="search col-3">
                 <input type="text" id="mySearch" placeholder="Search..">
@@ -40,125 +43,154 @@
                 <div style='text-align: left; margin-top: 0.5vw;'><button class='btn btn-dark' id='add'>Add</button></div>
             </div>
             <div class='col'>
-                <div class='row' style='height: 50vh'>   
-                    <div class='col'>
-                        <div id="theme-output"></div>
-
-                            <div id="edit-form">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme ID</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="edit-theme_id" class="form-control" style="width: 90%;" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme Name</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="edit-themeName" class="form-control" style="width: 90%;">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme Description</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="edit-themeDescription" class="form-control" style="width: 90%;">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme Start Date</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="edit-themeStartDate" class="form-control" style="width: 90%;" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme End Date</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="edit-themeEndDate" class="form-control" style="width: 90%;" readonly>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="date" id="edit-themeEndDate" class="form-control" style="width: 90%;">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme View Count</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="edit-themeViewCount" class="form-control" style="width: 90%;" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme Picture</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="edit-themePicture" class="form-control" style="width: 90%;" readonly>
-                                    </div>
-                                </div>
-                                <button class='btn btn-warning' id='editsubmit' style='margin-left: 50%'>Submit</button>
-                            </div>
-
-                            <div id="add-form">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme Name</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="add-themeName" class="form-control" style="width: 90%;">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme Description</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="add-themeDescription" class="form-control" style="width: 90%;">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme Start Date</label>
-                                    <div class="col-sm-8">
-                                        <input type="date" id="add-themeStartDate" class="form-control" style="width: 90%;">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme End Date</label>
-                                    <div class="col-sm-8">
-                                        <input type="date" id="add-themeEndDate" class="form-control" style="width: 90%;">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4" for="theme_id">Theme Picture</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="add-themePicture" class="form-control" style="width: 90%;">
-                                    </div>
-                                </div>
-                                <button class='btn btn-warning' id='addsubmit' style='margin-left: 50%'>Submit</button>
-                            </div>
-
+                <div id="theme-output">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Theme ID</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-theme_id" class="form-control" style="width: 90%;" readonly>
+                        </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Theme Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeName" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeDescription" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Start Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeStartDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme End Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeEndDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme View Count</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeViewCount" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Picture</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themePicture" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
                 </div>
-                <div class='row'>
-                    <button class='btn btn-primary' id='edit' style='margin-left: 50%'>Edit</button>
-                    <button class='btn btn-danger' id='delete' style='margin-left: 2%'>Delete</button>
+
+                <div id="edit-form">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme ID</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-theme_id" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeName" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeDescription" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Start Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeStartDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme End Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeEndDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="date" id="edit-themeEndDate" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme View Count</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeViewCount" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Picture</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themePicture" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+                    <button class='btn btn-warning' id='editsubmit' style='margin-left: 50%'>Submit</button>
                 </div>
+
+                <div id="add-form">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="add-themeName" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="add-themeDescription" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Start Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" id="add-themeStartDate" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme End Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" id="add-themeEndDate" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Picture</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="add-themePicture" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+                    <button class='btn btn-warning' id='addsubmit' style='margin-left: 50%'>Submit</button>
+                </div>
+                
+                <button class='btn btn-primary' id='edit' style='margin-left: 40%'>Edit</button>
+                <button class='btn btn-danger' id='delete' style='margin-left: 2%'>Delete</button>
             </div>
         </div>
-    </div>
-    
-    <div class="edit container">
-        <div class="row">
-            <div class="col-3">
-
-            </div>
-            <div class="col">
-
-            </div>
-        </div>
-
     </div>
 </body>
 <script>
@@ -172,6 +204,7 @@
     $('#add').show();
     $('#edit-form').hide();
     $('#add-form').hide();
+    $('#theme-output').hide();
     get_theme();
 
     $.get('/check-session', (data, status)=> {
@@ -216,20 +249,10 @@
         }
     })
 
-    //display the selected theme on the left
+    //display the selected theme on the right
     $('#search-op').on('click', 'table tr', function() {
         let idx = $(this).attr('id');
-        let div = $('#theme-output');
-        div.text('');
         data = themes[idx];
-
-        Object.keys(data).forEach(function(key) {
-
-            var divkey = $(`<div>`);
-            divkey.append(`${key}: ${data[key]}`);
-            div.append(divkey);
-        });
-
         $('#edit').show();
         $('#delete').show();
         $('#theme-output').show();
@@ -237,6 +260,13 @@
         $('#addsubmit').hide();
         $('#edit-form').hide();
         $('#add-form').hide();
+        $("#output-theme_id").attr('value',`${data.theme_id}`);
+        $("#output-themeName").attr('value',`${data.themeName}`);
+        $("#output-themeDescription").attr('value',`${data.themeDescription}`);
+        $("#output-themeStartDate").attr('value',`${data.themeStartDate}`);
+        $("#output-themeEndDate").attr('value',`${data.themeEndDate}`);
+        $("#output-themeViewCount").attr('value',`${data.themeViewCount}`);
+        $("#output-themePicture").attr('value',`${data.themePicture}`);
     }); 
 
     //delete theme
@@ -261,7 +291,7 @@
         $('#edit-form').show();
         $('#edit').hide();
         $('#delete').hide();
-        $('#add-form').hide();   
+        $('#add-form').hide();
         $("#edit-theme_id").attr('value',`${data.theme_id}`);
         $("#edit-themeName").attr('value',`${data.themeName}`);
         $("#edit-themeDescription").attr('value',`${data.themeDescription}`);
@@ -301,12 +331,7 @@
         $('#delete').hide();
         $('#add-form').show()  
         console.log(data);
-        $("#add-themeName").attr('value', "");
-        $("#add-themeDescription").attr('value','');
-        $("#add-themeStartDate").attr('value','');
-        $("#add-themeEndDate").attr('value','');
-        $("#add-themeViewCount").attr('value','');
-        $("#add-themePicture").attr('value','');
+        $('#add-form :input').val('');
     });
 
     //Submit adding
