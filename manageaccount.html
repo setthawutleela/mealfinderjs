@@ -12,36 +12,84 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"> 
 </head>
 <body class="managecustomer">
-    <div class="clearfix container-fluid">
-        <div class="navBar">
-            <ul>
-                <div class="floatL">
-                    <li><a href="/admin">BACK</a></li>
+
+        <div class="clearfix container-fluid">
+                <div class="navBar">
+                    <ul>
+                        <div class="floatL">
+                            <li><a href="/admin">BACK</a></li>
+                        </div>
+                        <div class="floatR">
+                            <li><a href="/signout">SIGN OUT</a></li>
+                            <li>
+                                <p id='username'></p>
+                            </li>
+                        </div>
+                    </ul>
                 </div>
-                <div class="floatR">
-                    <li><a href="/signout">SIGN OUT</a></li>
-                    <li>
-                        <p id='username'></p>
-                    </li>
-                </div>
-            </ul>
-        </div>
-    </div>
+            </div>
+
     <h1>Account management</h1>
     <div class="clearfix container">
         <div class='row'></div>
 
-            <div class="search col-4">
+            <div class="search col-3">
                 <input type="text" id="mySearch" placeholder="Search..">
                 <div id="search-op"></div>
             </div>
+
             <div class='col'>
-                <div class='row' style='height: 50vh'>
-                    <div class='col' id="account-output"></div>
+                <div id="account-output">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">User ID</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-user_id" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label class="control-label col-sm-4">Email</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="output-email" class="form-control" style="width: 90%;" readonly>
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Full Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-fullName" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">User Phone</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-userPhone" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Rank</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-rank" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Profile Picture</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-profile-picture" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Birth date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-birthDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
                 </div>
-                <div class='row'>
-                    <button class='btn btn-danger' id='delete' style='margin-left: 75%'>Delete</button>
-                </div>
+                <button class='btn btn-danger' id='delete' style='margin-left: 75%'>Delete</button>
             </div>
         </div>
     </div>
@@ -50,6 +98,7 @@
     var users;
     let data;
     $('#delete').hide()
+    $('#account-output').hide()
 
     $.get('/check-session', (data, status)=> {
         cookies = JSON.parse(data)
@@ -95,31 +144,17 @@
 
     $('#search-op').on('click', 'table tr', function() {
         let idx = $(this).attr('id');
-        console.log(idx)
-        let div = $('#account-output');
-        div.text('');
         data = users[idx];
-        console.log(data)
-        console.log(Object.keys(data))
-        Object.keys(data).forEach(function(key) {
-
-            var divkey = $(`<div>`);
-            divkey.append(`${key}: ${data[key]}`);
-            div.append(divkey);
-        });
+        $('#account-output').show()
+        $("#output-user_id").attr('value',`${data.user_id}`);
+        $("#output-email").attr('value',`${data.email}`);
+        $("#output-fullName").attr('value',`${data.fullName}`);
+        $("#output-userPhone").attr('value',`${data.userPhone}`);
+        $("#output-rank").attr('value',`${data.rank}`);
+        $("#output-profile_picture").attr('value',`${data.profile_picture}`);
+        $("#output-birthDate").attr('value',`${data.birthDate}`);
         $('#delete').show();
     }); 
-
-    // $('#delete').click(function() {
-    //     $.post( "/admin/delete", data)
-    //         .done(function(data) {
-    //             console.log('asd')
-    //             let div = $('#account-output');
-    //             div.text('');
-    //             $('#delete').hide();
-    //             get_account();
-    //         });
-    // })
 
     $('#delete').click(function() {
         var bOk = confirm("Kuay?");
