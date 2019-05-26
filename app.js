@@ -381,6 +381,26 @@ app.post('/admin/add-theme', (req, res) => {
     });
 });
 
+//random Meal
+app.get('/randomMeal', (req,res) =>{
+    console.log(req.body);
+
+    //basic
+    let sql = `SELECT mealName, restaurantName  FROM meal_list m, restaurant_info r WHERE m.restaurant_ID = r.restaurant_ID`
+
+    //BruteForce Filter
+
+    let query = con.query(sql,(err, results)=>{
+        console.log(results);
+        let randomNum = Math.floor((Math.random() * results.length) + 1);
+        console.log(randomNum);
+        res.send(JSON.stringify(results[randomNum]));
+    });
+   
+    
+});
+
+
 const port = 3000;
 app.listen(port, () => {
     console.log(`Server started on port ${port}!`)

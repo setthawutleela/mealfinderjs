@@ -34,7 +34,25 @@
         <div class="rand">
             <h1>#WhatDoYouWantToEatToday<br></h1>
             <ul>
-                <li><a href="#randombtn" onclick="myFunction()">RANDOM</a></li>
+                <!--RANDOM-->
+                <input type="button" onclick="filterOn()" value="Filter">
+                &nbsp; <span id="test">test</span>
+                <div class="filter">
+                    <!--filter-->
+                    TYPE : &nbsp;
+                    <input type="text" name=mealType placeholder="Ex. Buffet, One-dish">
+                    PRICE BELOW : &nbsp;
+                    <input type="text" name=priceRange placeholder="0-499 BHT">
+                    INGREDIENT WANTS : &nbsp;
+                    <input type="text" name=ingWant placeholder="Ex. Beef, Pork">
+                    INGREDIENT DON'T WANTS : &nbsp;
+                    <input type="text" name=ingHate placeholder="Ex. Vegetable, Beef">
+                    NATIONALITY : &nbsp;
+                    <input type="text" name=nationality placeholder="Ex. Japanese, Thai">
+                </div>
+
+                <li><a href="#randombtn" onclick="randomFunc()">RANDOM</a></li>
+
                 <li><p id="randomans"></p></li>
             </ul>
         </div>
@@ -50,18 +68,35 @@
 <script>
     $('.client').hide()
     $('.not-client').show()
+    $('.filter').hide();
 
-    function myFunction() {
-        var x = Math.floor((Math.random() * 3) + 1);
-        if(x == 1){
-            document.getElementById("randomans").innerHTML = "Food1";
+    var status = 0; //off
+
+    function filterOn(){
+        //status = (status+1)%2;
+        $('#test').text(status);
+
+        if(status == 0)
+        {
+             $('.filter').hide();
+             status=1;
         }
-        else if(x == 2){
-            document.getElementById("randomans").innerHTML = "Food2";
+        else
+        {
+            $('.filter').show();
+            status=0;
         }
-        else{
-            document.getElementById("randomans").innerHTML = "Food3";
-        }
+        
+    }
+
+    function randomFunc() {
+        
+        $.get('/randomMeal',(data,status)=>{
+            randomMeal = JSON.parse(data)
+            $("#randomans").text(randomMeal.mealName+" @ "+randomMeal.restaurantName);
+        })
+        
+       
     }
 
     $.get('/check-session', (data, status)=> {
