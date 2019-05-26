@@ -4,8 +4,12 @@ const path = require('path');
 const upload = require('express-fileupload');
 const parser = require('body-parser');
 const session = require('express-session');
+<<<<<<< HEAD
 const fs = require('fs');
 const multer = require('multer');
+=======
+
+>>>>>>> 159213763857d5fd955cce78d515bded54a0f44a
 const app = express();
 
 const monthName = ["January" , "Febuary" , "March" , "April" , "May" , "June" , "July" , "August" , "September" , "October" , "November" , "December"];
@@ -25,8 +29,13 @@ app.use('/admin', express.static(path.join(__dirname, 'public')));
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
+<<<<<<< HEAD
     password: 'root',
     database: 'mealfinder'
+=======
+    password: '',
+    database: 'mealfinder2'
+>>>>>>> 159213763857d5fd955cce78d515bded54a0f44a
 });
 //Connect database
 con.connect((err) => {
@@ -38,6 +47,10 @@ con.connect((err) => {
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/homepage.html')
+});
+
+app.get('/report', (req, res) => {
+    res.sendFile(__dirname+'/report.html')
 });
 
 app.get('/signin', (req, res) => {
@@ -52,10 +65,11 @@ app.get('/admin', (req, res) => {
     res.sendFile(__dirname+'/adminpage.html')
 });
 
-app.get('/admin/manageaccount', (req, res) => {
+app.get('/admin/manage-account', (req, res) => {
     res.sendFile(__dirname+'/manageaccount.html')
 });
 
+<<<<<<< HEAD
 //Client View
 app.get('/profile',(req,res) =>{
     res.sendFile(__dirname+'/profile.html')
@@ -63,6 +77,27 @@ app.get('/profile',(req,res) =>{
 
 app.get('/editProfile',(req,res) => {
     res.sendFile(__dirname+'/editProfile.html')
+=======
+//add view theme by Pleum
+app.get('/theme_view', (req, res) => {
+    res.sendFile(__dirname+'/theme_view.html')
+});
+
+
+app.get('/update',(req, res) => {
+    let sql = `UPDATE user_info SET rank = 'client' WHERE rank = 'Client'`;
+    let query = con.query(sql, (err, result) => {
+        if(err) {
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            res.send('Data updated...');
+        }
+    })
+app.get('/admin/manage-theme', (req, res) => {
+    res.sendFile(__dirname+'/managetheme.html')
+>>>>>>> 159213763857d5fd955cce78d515bded54a0f44a
 });
 
 
@@ -81,6 +116,7 @@ app.post('/signin',(req, res) => {
             else {//There is an email
                 if(result[0].password == req.body.password) {//Login is valid
                     sess = req.session;
+                    sess.id = result[0].user_id;
                     sess.email = result[0].email;
                     sess.rank = result[0].rank;
                     sess.fullName = result[0].fullName;
@@ -103,6 +139,9 @@ app.post('/signin',(req, res) => {
                     else if(result[0].rank == 'Client'){
                         res.redirect('/');
                     }
+                    // else {
+                    //     res.redirect('https://www.google.co.th/search?q=บัคนะเราอะ');
+                    // }
                 }
                 else { //Log in is invalid
                     res.redirect('/signin');
@@ -126,6 +165,7 @@ app.post('/signup',(req, res) => {
         else{ //Query is success
             console.log('sign up successfully...');
             const sess = req.session;
+            sess.id = result[0].user_id;
             sess.email = req.body.email;
             sess.rank = req.body.rank;
             sess.fullName = req.body.fullName;
@@ -134,7 +174,25 @@ app.post('/signup',(req, res) => {
     });
 });
 
-app.get('/checksession', (req, res) => {
+app.post('/report',(req, res) => {
+    let sql = `INSERT INTO report(user_ID,reportTitle, reportDescription, reportDate)
+                VALUES('${sess.id}','${req.body.reportTitle}','${req.body.reportDescription}','${req.body.reportDate}')`
+    let query = con.query(sql ,(err, result) => {
+        if(err){
+        console.log(err)
+        res.redirect('/report')
+        }
+        else{
+        res.redirect('/');
+        }
+    })
+
+    })
+
+
+
+
+app.get('/check-session', (req, res) => {
     sess = req.session
     res.send(JSON.stringify(sess))
 })
@@ -157,6 +215,14 @@ app.get('/admin/getaccount', (req, res) => {
     })
 })
 
+app.get('/theme/get_themeName', (req, res) =>{
+    console.log(req.body);
+    let sql = `SELECT themeName FROM theme_info WHERE 1`;
+    let query = con.query(sql, (err, results) =>{
+        res.send(JSON.stringify(results))
+    })
+})
+
 app.get('/signin',(req, res) => {
     console.log('Sign in requested...');
     let sql = `SELECT * FROM user_info WHERE email = '${req.body.email}'`;
@@ -171,10 +237,12 @@ app.get('/signin',(req, res) => {
             }
             else {//There is an email
                 if(result[0].password == req.body.password) {//Login is valid
+                    console.log(result[0])
                     sess = req.session;
                     sess.email = result[0].email;
                     sess.rank = result[0].rank;
                     sess.fullName = result[0].fullName;
+                    sess.id = result[0].user_id;
                     if(result[0].rank == 'admin'){
                         res.redirect('/admin');
                     }
@@ -190,14 +258,43 @@ app.get('/signin',(req, res) => {
     })
 });
 
-app.post('/admin/delete', (req, res) => {
+app.post('/theme/themeRestaurant', (req, res) => {
     console.log(req.body);
+    let sql = `SELECT  r.restaurantName
+    FROM theme_register m, restaurant_info r, theme_info t
+    WHERE t.themeName = '${req.body.themeName}' AND r.restaurant_ID = m.restaurant_ID AND t.theme_ID = m.theme_ID `;
+
+    app.get('/admin/get-account', (req, res) => {
+    let sql = `SELECT * FROM user_info WHERE 1`;
+    let query = con.query(sql, (err, results) => {
+        res.send(JSON.stringify(results))
+    })
+})
+
+app.post('/admin/delete-account', (req, res) => {
     let sql = `DELETE FROM user_info WHERE user_id = ${req.body.user_id}`;
+    let query = con.query(sql, (err, results) => {
+       console.log(results);
+        res.send(JSON.stringify(results));
+        
+    })
+});
+
+app.get('/admin/get-theme', (req, res) => {
+    let sql = `SELECT * FROM theme_info WHERE 1`;
+    let query = con.query(sql, (err, results) => {
+        res.send(JSON.stringify(results))
+    })
+});
+
+app.post('/admin/delete-theme', (req, res) => {
+    let sql = `DELETE FROM theme_info WHERE theme_id = ${req.body.theme_id}`;
     let query = con.query(sql, (err, results) => {
         res.send('success');
     })
 });
 
+<<<<<<< HEAD
 const upload = multer({
     dest: "/public/tempPic"
 });
@@ -298,6 +395,24 @@ app.post('/editing',(req,res)=>{
             }
         }
     });    
+
+app.post('/admin/edit-theme', (req, res) => {
+    console.log(req.body);
+    let sql = `UPDATE theme_info SET themeName = '${req.body.themeName}' WHERE theme_id = '${req.body.theme_id}'`
+    let query = con.query(sql, (err, results) => {
+        res.send(JSON.stringify(results))
+    });
+});
+
+app.post('/admin/add-theme', (req, res) => {
+    console.log(req.body);
+    let sql = `INSERT INTO theme_info(themeName, themeDescription, themeStartDate, themeEndDate, themeViewCount)
+                VALUES('${req.body.themeName}', '${req.body.themeDescription}', '${req.body.themeStartDate}',
+                '${req.body.themeEndDate}', '${req.body.themeViewCount}')`
+    let query = con.query(sql, (err, results) => {
+        res.send(JSON.stringify(results))
+    });
+>>>>>>> 159213763857d5fd955cce78d515bded54a0f44a
 });
 
 const port = 3000;

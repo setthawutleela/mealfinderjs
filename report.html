@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meal Finder @KMUTT</title>
+    <link rel="icon" href="pic/logo.png">
+    <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div class="clearfix">
+        <div class="navBar">
+            <ul>
+                <div class="floatL">
+                    <li><a href="/"><img class="logo" src="pic/logo.png"></a></li>
+                    <li><a href="#aboutus">ABOUT US</a></li>
+                </div>
+                <div class="floatR">
+                     <li class='client'><a href="/signout">SIGN OUT</a></li>
+                    <li><p id='username'></p></li>
+                    </li>   
+                    <li class='client'><a href="#"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="report">
+            <h1>Report<br></h1>
+            <div class="ipform">
+                <form action="/report" method="POST">
+                    <input type="text" name="reportTitle" placeholder="Report Title" required autofocus><required><br>
+                    <textarea placeholder="Report Description" rows="4" cols="50" name="reportDescription"></textarea> <required><br>
+                    <input type="Date" name="reportDate" placeholder="Date"><br>
+                  <!--  <input type="file" name="reportPicture"><br> -->
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+        $('.client').hide()
+        $('.not-client').show()
+    
+    
+        $.get('/checksession', (data, status)=> {
+            cookies = JSON.parse(data)
+            console.log(cookies)
+            if(cookies.email) {
+                $('.client').show()
+                $('.not-client').hide()
+            }
+            $('#username').text(cookies.fullName)
+        })
+    
+    </script>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meal Finder @KMUTT</title>
+    <link rel="icon" href="pic/logo.png">
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"> 
+</head>
+<body class="managetheme">
+
+    <div class="clearfix container-fluid">
+        <div class="navBar">
+            <ul>
+                <div class="floatL">
+                    <li><a href="/admin">BACK</a></li>
+                </div>
+                <div class="floatR">
+                    <li><a href="/signout">SIGN OUT</a></li>
+                    <li>
+                        <p id='username'></p>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <h1>Theme management</h1>
+
+    <div class="clearfix container">
+        <div></div>
+        <div class='row'>
+            <div class="search col-3">
+                <input type="text" id="mySearch" placeholder="Search..">
+                <div id="search-op"></div>
+                <div style='text-align: left; margin-top: 0.5vw;'><button class='btn btn-dark' id='add'>Add</button></div>
+            </div>
+            <div class='col'>
+                <div id="theme-output">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Theme ID</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-theme_id" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Theme Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeName" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeDescription" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Start Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeStartDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme End Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeEndDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme View Count</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themeViewCount" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Picture</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="output-themePicture" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="edit-form">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme ID</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-theme_id" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeName" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeDescription" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Start Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeStartDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme End Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeEndDate" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="date" id="edit-themeEndDate" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme View Count</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themeViewCount" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Picture</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="edit-themePicture" class="form-control" style="width: 90%;" readonly>
+                        </div>
+                    </div>
+                    <button class='btn btn-warning' id='editsubmit' style='margin-left: 50%'>Submit</button>
+                </div>
+
+                <div id="add-form">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="add-themeName" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="add-themeDescription" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Start Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" id="add-themeStartDate" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme End Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" id="add-themeEndDate" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="theme_id">Theme Picture</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="add-themePicture" class="form-control" style="width: 90%;">
+                        </div>
+                    </div>
+                    <button class='btn btn-warning' id='addsubmit' style='margin-left: 50%'>Submit</button>
+                </div>
+                
+                <button class='btn btn-primary' id='edit' style='margin-left: 40%'>Edit</button>
+                <button class='btn btn-danger' id='delete' style='margin-left: 2%'>Delete</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var themes;
+    let data;
+
+    $('#delete').hide();
+    $('#edit').hide();
+    $('#editsubmit').hide();
+    $('#addsubmit').hide();
+    $('#add').show();
+    $('#edit-form').hide();
+    $('#add-form').hide();
+    $('#theme-output').hide();
+    get_theme();
+
+    $.get('/check-session', (data, status)=> {
+        cookies = JSON.parse(data)
+        console.log(cookies)
+        $('#username').text(cookies.fullName)
+    })
+
+    //display theme under search input
+    function get_theme() {
+        $.get('/admin/get-theme', (data, status)=> {
+            themes = JSON.parse(data);
+            $('#search-op').text('')
+            var table = $('<table>').attr('id', 'theme-table');
+                table.css('border', '1px solid black');
+            var tbody = $('<tbody>')
+            for (i = 0; i < themes.length; i++) {
+                
+                var row = `<tr id='${i}'><td>${themes[i].themeName}</td></tr>`
+                tbody.append(row);
+            }
+            table.append(tbody)
+            $('#search-op').append(table);
+            console.log(themes);
+        });
+    }
+
+    //display the seleted theme
+    $('#mySearch').keyup( function() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("mySearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("theme-table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    })
+
+    //display the selected theme on the right
+    $('#search-op').on('click', 'table tr', function() {
+        let idx = $(this).attr('id');
+        data = themes[idx];
+        $('#edit').show();
+        $('#delete').show();
+        $('#theme-output').show();
+        $('#editsubmit').hide();
+        $('#addsubmit').hide();
+        $('#edit-form').hide();
+        $('#add-form').hide();
+        $("#output-theme_id").attr('value',`${data.theme_id}`);
+        $("#output-themeName").attr('value',`${data.themeName}`);
+        $("#output-themeDescription").attr('value',`${data.themeDescription}`);
+        $("#output-themeStartDate").attr('value',`${data.themeStartDate}`);
+        $("#output-themeEndDate").attr('value',`${data.themeEndDate}`);
+        $("#output-themeViewCount").attr('value',`${data.themeViewCount}`);
+        $("#output-themePicture").attr('value',`${data.themePicture}`);
+    }); 
+
+    //delete theme
+    $('#delete').click(function() {
+        var bOk = confirm("Are you sure to delete it?");
+        if(bOk == true){
+            $.post( "/admin/delete-theme", data)
+                .done(function(data) {
+                    let div = $('#theme-output');
+                    div.text('');
+                    $('#delete').hide();
+                    $('#edit').hide();
+                    get_theme();
+                });
+        }
+    })
+    //edit theme
+    $('#edit').click(function() {
+        $('#addsubmit').show();
+        $('#editsubmit').show();
+        $('#theme-output').hide();
+        $('#edit-form').show();
+        $('#edit').hide();
+        $('#delete').hide();
+        $('#add-form').hide();
+        $("#edit-theme_id").attr('value',`${data.theme_id}`);
+        $("#edit-themeName").attr('value',`${data.themeName}`);
+        $("#edit-themeDescription").attr('value',`${data.themeDescription}`);
+        $("#edit-themeStartDate").attr('value',`${data.themeStartDate}`);
+        $("#edit-themeEndDate").attr('value',`${data.themeEndDate}`);
+        $("#edit-themeViewCount").attr('value',`${data.themeViewCount}`);
+        $("#edit-themePicture").attr('value',`${data.themePicture}`);
+
+    });
+
+    //Submit editing
+    $('#editsubmit').click(function() {
+        var bOk = confirm("Are you sure to edit it?");
+        if(bOk == true){
+            data.themeName = $('#edit-themeName').val();
+            data.themeDescription = $('#edit-themeDesciption').val();
+            data.themeEndDate = $('#edi-themeEndDate').val();
+            $.post( "/admin/edit-theme", data)
+                .done(function(data) {
+                    console.log('Theme edited...')
+                });
+        }
+        $('#edit').hide();
+        $('#delete').hide();
+        $('#edit-form').hide();
+        $('#theme-output').hide();
+        get_theme();  
+    });
+
+    //add theme
+    $('#add').click(function() {
+        $('#addsubmit').show();
+        $('#editsubmit').hide();
+        $('#theme-output').hide();
+        $('#edit-form').hide();
+        $('#edit').hide();
+        $('#delete').hide();
+        $('#add-form').show()  
+        console.log(data);
+        $('#add-form :input').val('');
+    });
+
+    //Submit adding
+    $('#addsubmit').click(function() {
+        var bOk = confirm("Are you sure to add it?");
+        if(bOk == true){
+            data.themeName = $('#add-themeName').val();
+            data.themeDescription = $('#add-themeDescription').val();
+            data.themeStartDate = $('#add-themeStartDate').val();
+            data.themeEndDate = $('#add-themeEndDate').val();
+            data.themeViewCount = $('#add-themeViewCount').val();
+            console.log(add);
+            $.post( "/admin/add-theme", data)
+                .done(function(data) {
+                    console.log('Theme added...')
+                });
+        }
+        $('#add-form').hide();
+        $('#addsubmit').hide();
+        get_theme();  
+    });
+</script>
+</html>

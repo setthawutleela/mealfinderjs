@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meal Finder @KMUTT</title>
+    <link rel="icon" href="pic/logo.png">
+    <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="theme_view">
+    <div class="clearfix">
+            <div class="navBar">
+                <ul>
+                    <div class="floatL">
+                        <li><a href="homepage.php"><img src="pic/logo.png"></a></li>
+                        <li><a href="#aboutus">ABOUT US</a></li>
+                        <li><a href="/report">REPORT</a></li>
+                    </div>
+                    <div class="floatR">
+                        <li class='client'><a href="/signout">SIGN OUT</a></li>
+                        <li><p id='username'></p></li>
+                        </li>
+                        <li class='client'><a href="#"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
+                    </div>
+                   
+                </ul>
+            </div>
+        </dxiv>
+        <div class="clearfix">
+                
+                <h1>Theme<br></h1>
+                <div class="themeName">
+                        <div class="search col-4">
+                                <div id="search-op"></div>
+                            </div>
+                    
+                </div>
+                    
+                        <!--<div class='row'>
+                                <button class='btn btn-danger' id='Press' style='margin-left: 75%'>#Press</button>
+                            </div>-->
+                        
+            
+            
+        </div>
+    </div>
+</body>
+
+<script>
+    var users;
+    let data;
+    var users2;
+    function get_themeName() {
+        $.get('/theme/get_themeName', (data, status)=> {
+            users = JSON.parse(data);
+            $('#search-op').text('')
+            var table = $('<table>').attr('id', 'account-table');
+                table.css('border', '1px solid black');
+            var tbody = $('<tbody>')
+            for (i = 0; i < users.length; i++) {
+                 var row = `<tr id='${i}'><td>${users[i].themeName}</td></tr>`
+               // $(".themeName").append(row)
+                tbody.append(row);
+            }
+            table.append(tbody)
+            $('#search-op').append(table);
+        });
+    }
+    
+    get_themeName();
+
+   $('#search-op').on('click', 'table tr', function() {
+         let idx = $(this).attr('id');
+         //console.log(idx)
+        data = users[idx];
+        console.log(data)
+        //console.log(Object.keys(data))
+     //Object.keys(data).forEach(function(key) {
+
+    
+    $.post('/theme/themeRestaurant/',data,
+        function(data, status){
+             users2 = JSON.parse(data);
+             
+              for (i = 0; i < users2.length; i++){
+                 row = users2[i].restaurantName
+                //console.log(users[i])
+                  $(".themeName").append(row);
+              }
+           
+        }
+    ) 
+    
+//});
+})
+
+ $('.client').hide()
+$('.not-client').show()
+
+    $.get('/checksession', (data, status)=> {
+        cookies = JSON.parse(data)
+        console.log(cookies)
+        if(cookies.email) {
+            $('.client').show()
+            $('.not-client').hide()
+        }
+        $('#username').text(cookies.fullName)
+    })
+
+</script>
+
+</html>

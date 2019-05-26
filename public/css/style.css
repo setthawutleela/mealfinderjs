@@ -1,5 +1,5 @@
 body{
-    margin: 1% 0 0 0;
+    margin: 1% 0 3% 0;
     font-family: 'Arimo', sans-serif;
     font-weight: bold;
     }
@@ -34,6 +34,11 @@ body{
     text-decoration: none;
     font-weight: bold;
   }
+
+.theme{
+    color : green;
+    text-decoration: none;
+}
 
 .navBar li p{
     display: block;
@@ -182,9 +187,4 @@ h1.adminpage{
     font-size: 1.2vw;
     width: 100%;
     margin: 0 auto;
-}
-
-#account-output{
-    float: right;
-    font-size: 1.4vw;
 }
