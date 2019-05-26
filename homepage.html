@@ -64,7 +64,7 @@
         }
     }
 
-    $.get('/checksession', (data, status)=> {
+    $.get('/check-session', (data, status)=> {
         cookies = JSON.parse(data)
         console.log(cookies)
         if(cookies.email) {

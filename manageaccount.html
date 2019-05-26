@@ -51,14 +51,14 @@
     let data;
     $('#delete').hide()
 
-    $.get('/checksession', (data, status)=> {
+    $.get('/check-session', (data, status)=> {
         cookies = JSON.parse(data)
         console.log(cookies)
         $('#username').text(cookies.fullName)
     })
 
     function get_account() {
-        $.get('/admin/getaccount', (data, status)=> {
+        $.get('/admin/get-account', (data, status)=> {
             users = JSON.parse(data);
             $('#search-op').text('')
             var table = $('<table>').attr('id', 'account-table');
@@ -124,8 +124,7 @@
     $('#delete').click(function() {
         var bOk = confirm("Kuay?");
         if(bOk == true){
-            console.log(bOk);
-            $.post('/admin/delete', data)
+            $.post( "/admin/delete-account", data)
                 .done(function(data) {
                     let div = $('#account-output');
                     div.text('');
