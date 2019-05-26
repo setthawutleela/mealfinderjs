@@ -35,9 +35,8 @@
             <!--Show profile-->
             <h1>PROFILE</h1>
             <!--Image-->
-            <img id="image" src="pic/default.png"/>
-            <span id="test">test nou</span>
-            <br>
+            <img id="image" src="pic/default.png"> <br>
+            
 
             <!--EndImage-->
             <!--Normal-->
@@ -46,6 +45,7 @@
             <b>Phone Number</b> : <span id=phone></span> <br>
             <b>Date of birth</b> : <span id=dob></span> <br>
             <b>Rank</b> : <span id=rank></span> <br>
+            <b>test</b> : <span id=araiwa></span> <br>
             <form action="/editProfile" method="GET">
                 <input type="submit" value="Edit Profile">
             </form>
@@ -66,7 +66,7 @@
         $('#phone').text(cookies.phone)
         $('#dob').text(cookies.dobd +" "+ cookies.dobmname +" "+ cookies.doby)
         $('#rank').text(cookies.rank)
-        $('#image').attr('src',join("pic/",cookies.image))
-        $('#test').text(cookies.image)
+        $('#araiwa').text('pic/'+cookies.image)
+        $('#image').attr('src','pic/'+cookies.image)
     });
 </script>

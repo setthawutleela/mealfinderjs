@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
-const upload = require('express-fileupload');
+const fileUpload = require('express-fileupload');
 const parser = require('body-parser');
 const session = require('express-session');
 const fs = require('fs');
@@ -9,6 +9,8 @@ const fs = require('fs');
 const app = express();
 
 const monthName = ["January" , "Febuary" , "March" , "April" , "May" , "June" , "July" , "August" , "September" , "October" , "November" , "December"];
+
+app.use(fileUpload());
 
 app.use(parser());
 app.use(session({
@@ -85,10 +87,12 @@ app.get('/update',(req, res) => {
             res.send('Data updated...');
         }
     })
+});
+
 app.get('/admin/manage-theme', (req, res) => {
     res.sendFile(__dirname+'/managetheme.html')
 });
-});
+
 
 
 app.post('/signin',(req, res) => {
@@ -177,8 +181,7 @@ app.post('/report',(req, res) => {
         res.redirect('/');
         }
     })
-
-    })
+});
 
 
 
@@ -205,7 +208,7 @@ app.get('/admin/getaccount', (req, res) => {
     let query = con.query(sql, (err, results) => {
         res.send(JSON.stringify(results))
     })
-})
+});
 
 app.get('/theme/get_themeName', (req, res) =>{
     console.log(req.body);
@@ -213,7 +216,7 @@ app.get('/theme/get_themeName', (req, res) =>{
     let query = con.query(sql, (err, results) =>{
         res.send(JSON.stringify(results))
     })
-})
+});
 
 app.get('/signin',(req, res) => {
     console.log('Sign in requested...');
@@ -255,12 +258,12 @@ app.post('/theme/themeRestaurant', (req, res) => {
     let sql = `SELECT  r.restaurantName
     FROM theme_register m, restaurant_info r, theme_info t
     WHERE t.themeName = '${req.body.themeName}' AND r.restaurant_ID = m.restaurant_ID AND t.theme_ID = m.theme_ID `;
+});
 
-    app.get('/admin/get-account', (req, res) => {
+app.get('/admin/get-account', (req, res) => {
     let sql = `SELECT * FROM user_info WHERE 1`;
     let query = con.query(sql, (err, results) => {
         res.send(JSON.stringify(results))
-    });
     });
 });
 
@@ -289,11 +292,11 @@ app.post('/admin/delete-theme', (req, res) => {
 
 
 //editing profile
-app.post('/editing',(req,res)=>{
-    console.log(req.body);
-    let temp = {};
+app.post('/editing', (req,res) =>{
+
     let sql = `SELECT * FROM user_info WHERE email = "${req.body.email}"`;
-    
+    console.log(sql);
+    var file = req.files.image;
     sess = req.session;
     let checkquery = con.query(sql,(err,result)=>{
         if(err)
@@ -323,46 +326,20 @@ app.post('/editing',(req,res)=>{
                 {
                     req.body.phone = result[0].userPhone;
                 }
-                if(req.body.image == "")
+                if(!req.files)
                 {
-                    if(result[0].profile_picture == null)
-                    {
-                        req.body.image = "default.png";
-                    }
-                    else
-                    {
-                        req.body.image = result[0].profile_picture;
-                    }
+                        file.image.name = result[0].profile_picture;
                 }
                 console.log(req.body);
                 if(req.body.fullName != "" && req.body.password != "" && req.body.phone != "")
                 {
-                    upload.single("image"),(req,res)=>{
-                        const tempPath = req.file.path;
-                        const targetPath = path.join(__dirname,"./public/pic/image.png");
-                        
-                        if(path.extname(req.file.originalname).toLowerCase() === ".png"){
-                            fs.rename(tempPath, targetPath, err => {
-                                if(err) return handleError(err,res);
+                            file.mv('public/pic/'+file.name, function(err) {
+                                           
+                                if (err)
+                                    return res.status(500).send(err);
+                            });
 
-                                res
-                                    .status(200)
-                                    .contentType("text/plain")
-                                    .end("File uploaded!");
-                            });
-                        }
-                        else
-                        {
-                            fs.unlink(tempPath, err => {
-                                if(err) return handleError(err,res);
-                                res
-                                    .status(403)
-                                    .contentType("text/plain")
-                                    .end("Only .png files are allowed")
-                            });
-                        }
-                    };
-                    let sqlUpdate = `UPDATE user_info SET fullName="${req.body.fullName}" , password="${req.body.password}", userPhone="${req.body.phone}", profile_picture="${req.body.image}" WHERE email = "${req.body.email}"`;
+                    let sqlUpdate = `UPDATE user_info SET fullName="${req.body.fullName}" , password="${req.body.password}", userPhone="${req.body.phone}", profile_picture="${file.name}" WHERE email = "${req.body.email}"`;
                     console.log(sqlUpdate);
                     let queryUpdate = con.query(sqlUpdate,(err,result2)=>{
                         console.log("WTF")
@@ -376,7 +353,7 @@ app.post('/editing',(req,res)=>{
                             console.log("updated");
                             sess.fullName = req.body.fullName;
                             sess.phone = req.body.phone;
-                            sess.image = req.body.image;
+                            sess.image = file.name;
                             res.redirect('/profile');
                         }
                     });

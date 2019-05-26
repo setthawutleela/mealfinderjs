@@ -31,7 +31,7 @@
             <div class="ipform">
                     Please fill in the box where you want to edit your profile.<br>
                     If you didn't want to change, Please ignore it. <br><br>
-                <form action="/editing" enctype="multipart/form-data" method="POST">
+                <form action="/editing" enctype ="multipart/form-data" method="POST">
                     Name : 
                     <input type="text" name="fullName" id="fullName" placeholder="Enter new full name"><br>
                     New password :
@@ -42,9 +42,10 @@
                     Phone Number :
                     <input type="text" name="phone" id="phone" placeholder="Enter new phone number"><br>
                     
+                    <span id="emaill">email check</span>
                     <input type="hidden" name="email" id="email" value="">
                     <!--Image-->
-                    <input type="file" name="image">
+                    <input type="file" name="image" accept="">
                     <input type="submit" value="Apply change">
                 </form>
             </div>
@@ -55,11 +56,12 @@
 
 <script>
 
-$.get('/checkSession',(data,status)=>{
+$.get('/check-session',(data,status)=>{
     cookies = JSON.parse(data)
     $('#fullName').attr("placeholder",cookies.fullName)
     $('#phone').attr("placeholder",cookies.phone)
     $('#email').val(cookies.email)
+    $('#emaill').text(cookies.email)
 });
 
 function passwordFunc()
