@@ -95,10 +95,12 @@
 
     $('#search-op').on('click', 'table tr', function() {
         let idx = $(this).attr('id');
+        console.log(idx)
         let div = $('#account-output');
         div.text('');
         data = users[idx];
-
+        console.log(data)
+        console.log(Object.keys(data))
         Object.keys(data).forEach(function(key) {
 
             var divkey = $(`<div>`);
@@ -106,7 +108,7 @@
             div.append(divkey);
         });
         $('#delete').show();
-    });
+    }); 
 
     // $('#delete').click(function() {
     //     $.post( "/admin/delete", data)

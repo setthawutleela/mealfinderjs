@@ -37,6 +37,10 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname+'/homepage.html')
 });
 
+app.get('/report', (req, res) => {
+    res.sendFile(__dirname+'/report.html')
+});
+
 app.get('/signin', (req, res) => {
     res.sendFile(__dirname+'/signin.html')
 });
@@ -57,6 +61,7 @@ app.get('/admin/manageaccount', (req, res) => {
 app.get('/theme_view', (req, res) => {
     res.sendFile(__dirname+'/theme_view.html')
 });
+
 
 app.get('/update',(req, res) => {
     let sql = `UPDATE user_info SET rank = 'client' WHERE rank = 'Client'`;
@@ -87,6 +92,7 @@ app.post('/signin',(req, res) => {
             else {//There is an email
                 if(result[0].password == req.body.password) {//Login is valid
                     sess = req.session;
+                    sess.id = result[0].user_id;
                     sess.email = result[0].email;
                     sess.rank = result[0].rank;
                     sess.fullName = result[0].fullName;
@@ -122,6 +128,7 @@ app.post('/signup',(req, res) => {
         else{ //Query is success
             console.log('sign up successfully...');
             const sess = req.session;
+            sess.id = result[0].user_id;
             sess.email = req.body.email;
             sess.rank = req.body.rank;
             sess.fullName = req.body.fullName;
@@ -129,6 +136,26 @@ app.post('/signup',(req, res) => {
         }
     });
 });
+
+app.post('/report',(req, res) => {
+    let sql = `INSERT INTO report(user_ID,reportTitle, reportDescription, reportDate)
+                VALUES('${sess.id}','${req.body.reportTitle}','${req.body.reportDescription}','${req.body.reportDate}')`
+    let query = con.query(sql ,(err, result) => {
+        if(err){
+        console.log(err)
+        res.redirect('/report')
+        }
+        else{
+        res.redirect('/');
+        }
+    })
+
+    })
+
+
+
+
+
 
 app.get('/checksession', (req, res) => {
     sess = req.session
@@ -154,6 +181,7 @@ app.get('/admin/getaccount', (req, res) => {
 })
 
 app.get('/theme/get_themeName', (req, res) =>{
+    console.log(req.body);
     let sql = `SELECT themeName FROM theme_info WHERE 1`;
     let query = con.query(sql, (err, results) =>{
         res.send(JSON.stringify(results))
@@ -179,6 +207,7 @@ app.get('/signin',(req, res) => {
                     sess.email = result[0].email;
                     sess.rank = result[0].rank;
                     sess.fullName = result[0].fullName;
+                    sess.id = result[0].user_id;
                     if(result[0].rank == 'admin'){
                         res.redirect('/admin');
                     }
@@ -194,20 +223,23 @@ app.get('/signin',(req, res) => {
     })
 });
 
-app.get('/theme/themeRestaurant', (req, res) => {
-    let sql = `SELECT   r.restaurantName
-                FROM theme_info t, theme_register tr, restaurant_info r
-                WHERE t.themeName = '${req.body.themeName} AND t.theme_ID = tr.theme_ID AND r.restaurant_ID = tr.restaurant_ID'`;
+app.post('/theme/themeRestaurant', (req, res) => {
+    //console.log(req.body);
+    let sql = `SELECT  m.restaurant_ID
+    FROM theme_register m, restaurant_info r`;
     let query = con.query(sql, (err, results) => {
-        res.send(results);
+       console.log(results[0]);
+        res.send(JSON.stringify(results));
+        
     })
-})
+});
+
 
 app.post('/admin/delete', (req, res) => {
     console.log(req.body);
     let sql = `DELETE FROM user_info WHERE email = '${req.body.email}'`;
     let query = con.query(sql, (err, results) => {
-        res.send(results);
+        res.send(JSON.stringify(results));
     });
 });
 

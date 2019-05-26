@@ -18,11 +18,15 @@
                     <div class="floatL">
                         <li><a href="homepage.php"><img src="pic/logo.png"></a></li>
                         <li><a href="#aboutus">ABOUT US</a></li>
-                        <li><a href="#report">REPORT</a></li>
+                        <li><a href="/report">REPORT</a></li>
                     </div>
                     <div class="floatR">
-    
+                        <li class='client'><a href="/signout">SIGN OUT</a></li>
+                        <li><p id='username'></p></li>
+                        </li>
+                        <li class='client'><a href="#"><img class="picAccount" src="pic/user.svg" width="20px", height="20px"></a></li>
                     </div>
+                   
                 </ul>
             </div>
         </dxiv>
@@ -31,7 +35,13 @@
                 <h1>Theme<br></h1>
                 <div class="themeName">
                     </div>
-                
+                    <div class="search col-4">
+                            <div id="search-op"></div>
+                        </div>
+                        <div class='row'>
+                                <button class='btn btn-danger' id='Press' style='margin-left: 75%'>#Press</button>
+                            </div>
+                        
             
             
         </div>
@@ -39,22 +49,85 @@
 </body>
 
 <script>
+    var users;
+    let data;
+
+    $('#Press').show()
     function get_themeName() {
         $.get('/theme/get_themeName', (data, status)=> {
             users = JSON.parse(data);
+            $('#search-op').text('')
+            var table = $('<table>').attr('id', 'account-table');
+                table.css('border', '1px solid black');
+            var tbody = $('<tbody>')
             for (i = 0; i < users.length; i++) {
-                
-                var row = users[i].themeName+"<br>"
-                console.log(users[i].themeName)
-                //console.log(users[i])
-                $(".themeName").append(row)
+                 var row = `<tr id='${i}'><td>${users[i].themeName}</td></tr>`
+               // $(".themeName").append(row)
+                tbody.append(row);
             }
-            
+            table.append(tbody)
+            $('#search-op').append(table);
         });
     }
     
     get_themeName();
 
+   $('#search-op').on('click', 'table tr', function() {
+         let idx = $(this).attr('id');
+         //console.log(idx)
+        data = users[idx];
+        console.log(data)
+        //console.log(Object.keys(data))
+       // Object.keys(data).forEach(function(key) {
+            //console.log(`${key}: ${data[key]}`)
+
+        
+    //   $.get('/theme/themeRestaurant/' + data.themeName).done(function(data) {
+    //         // users = JSON.parse(data);
+    //         // for (i = 0; i < users.length; i++){
+    //         //     row = user[i].restaurantName
+    //         //     console.log(user[i])
+    //         //     $(".themeName").append(row);
+    //         // }
+            
+    //       }); 
+    $.post('/theme/themeRestaurant/',data,
+        function(data, status){
+
+            
+           
+        }); 
+        
+
+        
+    
+})
+
+// console.log(data)
+
+// $('#Press').click(function()
+// {
+//   $.get('/theme/themeRestaurant', (data) => {
+             
+            
+//           });  
+// })
+
+<script>
+    $('.client').hide()
+    $('.not-client').show()
+
+    $.get('/checksession', (data, status)=> {
+        cookies = JSON.parse(data)
+        console.log(cookies)
+        if(cookies.email) {
+            $('.client').show()
+            $('.not-client').hide()
+        }
+        $('#username').text(cookies.fullName)
+    })
+
+</script>
 
 </script>
 </html>
