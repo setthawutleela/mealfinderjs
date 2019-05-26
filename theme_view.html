@@ -31,16 +31,18 @@
             </div>
         </dxiv>
         <div class="clearfix">
-            
+                
                 <h1>Theme<br></h1>
                 <div class="themeName">
-                    </div>
-                    <div class="search col-4">
-                            <div id="search-op"></div>
-                        </div>
-                        <div class='row'>
-                                <button class='btn btn-danger' id='Press' style='margin-left: 75%'>#Press</button>
+                        <div class="search col-4">
+                                <div id="search-op"></div>
                             </div>
+                    
+                </div>
+                    
+                        <!--<div class='row'>
+                                <button class='btn btn-danger' id='Press' style='margin-left: 75%'>#Press</button>
+                            </div>-->
                         
             
             
@@ -51,8 +53,7 @@
 <script>
     var users;
     let data;
-
-    $('#Press').show()
+    var users2;
     function get_themeName() {
         $.get('/theme/get_themeName', (data, status)=> {
             users = JSON.parse(data);
@@ -78,44 +79,27 @@
         data = users[idx];
         console.log(data)
         //console.log(Object.keys(data))
-       // Object.keys(data).forEach(function(key) {
-            //console.log(`${key}: ${data[key]}`)
+     //Object.keys(data).forEach(function(key) {
 
-        
-    //   $.get('/theme/themeRestaurant/' + data.themeName).done(function(data) {
-    //         // users = JSON.parse(data);
-    //         // for (i = 0; i < users.length; i++){
-    //         //     row = user[i].restaurantName
-    //         //     console.log(user[i])
-    //         //     $(".themeName").append(row);
-    //         // }
-            
-    //       }); 
+    
     $.post('/theme/themeRestaurant/',data,
         function(data, status){
-
-            
+             users2 = JSON.parse(data);
+             
+              for (i = 0; i < users2.length; i++){
+                 row = users2[i].restaurantName
+                //console.log(users[i])
+                  $(".themeName").append(row);
+              }
            
-        }); 
-        
-
-        
+        }
+    ) 
     
+//});
 })
 
-// console.log(data)
-
-// $('#Press').click(function()
-// {
-//   $.get('/theme/themeRestaurant', (data) => {
-             
-            
-//           });  
-// })
-
-<script>
-    $('.client').hide()
-    $('.not-client').show()
+ $('.client').hide()
+$('.not-client').show()
 
     $.get('/checksession', (data, status)=> {
         cookies = JSON.parse(data)
@@ -129,5 +113,4 @@
 
 </script>
 
-</script>
 </html>

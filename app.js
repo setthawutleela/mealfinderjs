@@ -224,11 +224,12 @@ app.get('/signin',(req, res) => {
 });
 
 app.post('/theme/themeRestaurant', (req, res) => {
-    //console.log(req.body);
-    let sql = `SELECT  m.restaurant_ID
-    FROM theme_register m, restaurant_info r`;
+    console.log(req.body);
+    let sql = `SELECT  r.restaurantName
+    FROM theme_register m, restaurant_info r, theme_info t
+    WHERE t.themeName = '${req.body.themeName}' AND r.restaurant_ID = m.restaurant_ID AND t.theme_ID = m.theme_ID `;
     let query = con.query(sql, (err, results) => {
-       console.log(results[0]);
+       console.log(results);
         res.send(JSON.stringify(results));
         
     })
