@@ -228,7 +228,8 @@ app.post('/theme/themeRestaurant', (req, res) => {
     let sql = `SELECT  r.restaurantName
     FROM theme_register m, restaurant_info r, theme_info t
     WHERE t.themeName = '${req.body.themeName}' AND r.restaurant_ID = m.restaurant_ID AND t.theme_ID = m.theme_ID `;
-app.get('/admin/get-account', (req, res) => {
+
+    app.get('/admin/get-account', (req, res) => {
     let sql = `SELECT * FROM user_info WHERE 1`;
     let query = con.query(sql, (err, results) => {
         res.send(JSON.stringify(results))
