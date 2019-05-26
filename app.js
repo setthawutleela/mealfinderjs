@@ -4,12 +4,8 @@ const path = require('path');
 const upload = require('express-fileupload');
 const parser = require('body-parser');
 const session = require('express-session');
-<<<<<<< HEAD
 const fs = require('fs');
-const multer = require('multer');
-=======
 
->>>>>>> 159213763857d5fd955cce78d515bded54a0f44a
 const app = express();
 
 const monthName = ["January" , "Febuary" , "March" , "April" , "May" , "June" , "July" , "August" , "September" , "October" , "November" , "December"];
@@ -29,13 +25,8 @@ app.use('/admin', express.static(path.join(__dirname, 'public')));
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-<<<<<<< HEAD
     password: 'root',
     database: 'mealfinder'
-=======
-    password: '',
-    database: 'mealfinder2'
->>>>>>> 159213763857d5fd955cce78d515bded54a0f44a
 });
 //Connect database
 con.connect((err) => {
@@ -69,7 +60,6 @@ app.get('/admin/manage-account', (req, res) => {
     res.sendFile(__dirname+'/manageaccount.html')
 });
 
-<<<<<<< HEAD
 //Client View
 app.get('/profile',(req,res) =>{
     res.sendFile(__dirname+'/profile.html')
@@ -77,7 +67,7 @@ app.get('/profile',(req,res) =>{
 
 app.get('/editProfile',(req,res) => {
     res.sendFile(__dirname+'/editProfile.html')
-=======
+});
 //add view theme by Pleum
 app.get('/theme_view', (req, res) => {
     res.sendFile(__dirname+'/theme_view.html')
@@ -97,7 +87,7 @@ app.get('/update',(req, res) => {
     })
 app.get('/admin/manage-theme', (req, res) => {
     res.sendFile(__dirname+'/managetheme.html')
->>>>>>> 159213763857d5fd955cce78d515bded54a0f44a
+});
 });
 
 
@@ -124,6 +114,7 @@ app.post('/signin',(req, res) => {
                     sess.password = result[0].password;
                     sess.dob = result[0].birthDate;
                     sess.image = result[0].profile_picture;
+                    console.log(`image = ${sess.image}`);
                     //format date
                     var formattedDate = new Date(sess.dob);
                     sess.dobd = formattedDate.getDate();
@@ -194,8 +185,9 @@ app.post('/report',(req, res) => {
 
 app.get('/check-session', (req, res) => {
     sess = req.session
+    console.log(req.session);
     res.send(JSON.stringify(sess))
-})
+});
 
 app.get('/signout', (req, res) => {
     req.session.destroy( (err) => {
@@ -206,7 +198,7 @@ app.get('/signout', (req, res) => {
             res.redirect('/signin');
         }
     })
-})
+});
 
 app.get('/admin/getaccount', (req, res) => {
     let sql = `SELECT * FROM user_info WHERE 1`;
@@ -268,8 +260,9 @@ app.post('/theme/themeRestaurant', (req, res) => {
     let sql = `SELECT * FROM user_info WHERE 1`;
     let query = con.query(sql, (err, results) => {
         res.send(JSON.stringify(results))
-    })
-})
+    });
+    });
+});
 
 app.post('/admin/delete-account', (req, res) => {
     let sql = `DELETE FROM user_info WHERE user_id = ${req.body.user_id}`;
@@ -294,10 +287,6 @@ app.post('/admin/delete-theme', (req, res) => {
     })
 });
 
-<<<<<<< HEAD
-const upload = multer({
-    dest: "/public/tempPic"
-});
 
 //editing profile
 app.post('/editing',(req,res)=>{
@@ -394,7 +383,8 @@ app.post('/editing',(req,res)=>{
                 }
             }
         }
-    });    
+    });
+});   
 
 app.post('/admin/edit-theme', (req, res) => {
     console.log(req.body);
@@ -412,7 +402,6 @@ app.post('/admin/add-theme', (req, res) => {
     let query = con.query(sql, (err, results) => {
         res.send(JSON.stringify(results))
     });
->>>>>>> 159213763857d5fd955cce78d515bded54a0f44a
 });
 
 const port = 3000;

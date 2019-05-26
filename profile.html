@@ -35,7 +35,10 @@
             <!--Show profile-->
             <h1>PROFILE</h1>
             <!--Image-->
-            <img src="./public/pic/default.png"/>
+            <img id="image" src="pic/default.png"/>
+            <span id="test">test nou</span>
+            <br>
+
             <!--EndImage-->
             <!--Normal-->
             <b>NAME</b> : <span id=fullName></span> <br>
@@ -55,7 +58,7 @@
 <script>
 
     //get user data from session
-    $.get('/checksession',(data,status)=>{
+    $.get('/check-session',(data,status)=>{
         cookies = JSON.parse(data)
         console.log(cookies)
         $('#fullName').text(cookies.fullName)
@@ -63,6 +66,7 @@
         $('#phone').text(cookies.phone)
         $('#dob').text(cookies.dobd +" "+ cookies.dobmname +" "+ cookies.doby)
         $('#rank').text(cookies.rank)
-        $('#image').attr('src',cookies.image)
+        $('#image').attr('src',join("pic/",cookies.image))
+        $('#test').text(cookies.image)
     });
 </script>
