@@ -383,18 +383,23 @@ app.post('/admin/add-theme', (req, res) => {
 
 //random Meal
 app.get('/randomMeal', (req,res) =>{
-    console.log(req.body);
+    console.log(req.query.obj);
 
     //basic
     let sql = `SELECT mealName, restaurantName  FROM meal_list m, restaurant_info r WHERE m.restaurant_ID = r.restaurant_ID`
 
-    //BruteForce Filter
-
     let query = con.query(sql,(err, results)=>{
         console.log(results);
-        let randomNum = Math.floor((Math.random() * results.length) + 1);
-        console.log(randomNum);
-        res.send(JSON.stringify(results[randomNum]));
+        if(!results)
+        {
+            res.send(JSON.stringify(results[randomNum]));
+        }
+        else
+        {    
+            let randomNum = Math.floor((Math.random() * results.length) + 1);
+            console.log(randomNum);
+            res.send(JSON.stringify(results[randomNum]));
+        }
     });
    
     

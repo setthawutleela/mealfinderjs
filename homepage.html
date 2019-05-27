@@ -39,10 +39,11 @@
                 &nbsp; <span id="test">test</span>
                 <div class="filter">
                     <!--filter-->
+                    <input type="hidden" id=filterOn name=filterOn value=0>
                     TYPE : &nbsp;
                     <input type="text" name=mealType placeholder="Ex. Buffet, One-dish">
                     PRICE BELOW : &nbsp;
-                    <input type="text" name=priceRange placeholder="0-499 BHT">
+                    <input type="text" name=priceUnder placeholder="0-499 BHT">
                     INGREDIENT WANTS : &nbsp;
                     <input type="text" name=ingWant placeholder="Ex. Beef, Pork">
                     INGREDIENT DON'T WANTS : &nbsp;
@@ -70,33 +71,33 @@
     $('.not-client').show()
     $('.filter').hide();
 
-    var status = 0; //off
+    var status = 1; //off
 
     function filterOn(){
         //status = (status+1)%2;
+             
         $('#test').text(status);
 
         if(status == 0)
         {
              $('.filter').hide();
+             $('#filterOn').attr('value',1);  
              status=1;
         }
         else
         {
             $('.filter').show();
+            $('#filterOn').attr('value',0);
             status=0;
         }
         
     }
 
     function randomFunc() {
-        
-        $.get('/randomMeal',(data,status)=>{
-            randomMeal = JSON.parse(data)
-            $("#randomans").text(randomMeal.mealName+" @ "+randomMeal.restaurantName);
-        })
-        
-       
+        //var obj = {filter:$('#filterOn').val};
+        $.post('/randomMeal',(data,status)=>{
+           
+        });       
     }
 
     $.get('/check-session', (data, status)=> {
