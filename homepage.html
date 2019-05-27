@@ -96,7 +96,8 @@
     function randomFunc() {
         //var obj = {filter:$('#filterOn').val};
         $.post('/randomMeal',(data,status)=>{
-           
+           randomMeal = JSON.parse(data);
+           $('#randomans').text(randomMeal.mealName+" @ "+ randomMeal.restaurantName);
         });       
     }
 
