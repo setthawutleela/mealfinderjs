@@ -39,17 +39,10 @@
                 &nbsp; <span id="test">test</span>
                 <div class="filter">
                     <!--filter-->
-                    <input type="hidden" id=filterOn name=filterOn value=0>
-                    TYPE : &nbsp;
-                    <input type="text" name=mealType placeholder="Ex. Buffet, One-dish">
                     PRICE BELOW : &nbsp;
-                    <input type="text" name=priceUnder placeholder="0-499 BHT">
-                    INGREDIENT WANTS : &nbsp;
-                    <input type="text" name=ingWant placeholder="Ex. Beef, Pork">
-                    INGREDIENT DON'T WANTS : &nbsp;
-                    <input type="text" name=ingHate placeholder="Ex. Vegetable, Beef">
-                    NATIONALITY : &nbsp;
-                    <input type="text" name=nationality placeholder="Ex. Japanese, Thai">
+                    <input type="text" name=priceUnder placeholder="0-499 BHT" value=0 id="priceUnder">
+
+                    </form>
                 </div>
 
                 <li><a href="#randombtn" onclick="randomFunc()">RANDOM</a></li>
@@ -95,7 +88,7 @@
 
     function randomFunc() {
         //var obj = {filter:$('#filterOn').val};
-        $.post('/randomMeal',(data,status)=>{
+        $.get(`/randomMeal?priceUnder=${$('#priceUnder').val()}`,(data,status)=>{
            randomMeal = JSON.parse(data);
            $('#randomans').text(randomMeal.mealName+" @ "+ randomMeal.restaurantName);
         });       

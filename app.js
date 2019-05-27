@@ -127,11 +127,11 @@ app.post('/signin',(req, res) => {
                     sess.doby = formattedDate.getFullYear();
                     console.log(`Birth of Date = ${sess.dobd} ${sess.dobm} ${sess.doby}`);
                     //end format date
-                    if(result[0].rank == 'Admin'){
+                    if(result[0].rank == 'admin'){
 
                         res.redirect('/admin');
                     }
-                    else if(result[0].rank == 'Client'){
+                    else if(result[0].rank == 'client'){
                         res.redirect('/');
                     }
                     // else {
@@ -381,18 +381,23 @@ app.post('/admin/add-theme', (req, res) => {
     });
 });
 
+
 //random Meal
-app.get('/randomMeal', (req,res) =>{
-    console.log(req.query.obj);
-
+app.get('/randomMeal',(req,res) => {
+    var priceUnder = req.query.priceUnder;
+    console.log(priceUnder);
+    if(priceUnder == 0)
+    {
+        priceUnder = 500;
+    }
     //basic
-    let sql = `SELECT mealName, restaurantName  FROM meal_list m, restaurant_info r WHERE m.restaurant_ID = r.restaurant_ID`
-
+    let sql = `SELECT mealName, restaurantName  FROM meal_list m, restaurant_info r WHERE m.restaurant_ID = r.restaurant_ID AND m.price < ${priceUnder}`;
+    console
     let query = con.query(sql,(err, results)=>{
         console.log(results);
         if(!results)
         {
-            res.send(JSON.stringify(results[randomNum]));
+           // res.send(JSON.stringify(results[randomNum]));
         }
         else
         {    
